@@ -2,25 +2,19 @@ __author__ = 'luizfernando2'
 import Serializers
 import myPyTeaser
 import FacebookInterface
-from facepy import GraphAPI
 from collections import Counter
 
 
 def summarize_post(id, token):
-    graph = GraphAPI(token)
-    original_post_json = graph.get(path=id+'?fields=attachments,message,id,from,likes.limit(1).summary(true),comments.limit(1).summary(true)', page=False)
+    original_post_json = FacebookInterface.get_fb_post(id, token)
+    post = Serializers.post_serializer(original_post_json)
 
     #this may take a while
-    post = Serializers.post_serializer(original_post_json)
-    post.comments = FacebookInterface.get_fb_comments(post.id, graph)
+    post.comments = FacebookInterface.get_fb_comments(post.id, token)
 
     image_comment_list = []
     text_comment_list = []
-
     commenter_counter = Counter()
-
-    comment_list = [comment.message for comment in post.comments]
-
 
     for comment in post.comments:
         commenter_counter[comment.owner] += 1

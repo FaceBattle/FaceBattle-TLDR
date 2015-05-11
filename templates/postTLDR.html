@@ -107,7 +107,7 @@
         {% for image in images %}
                 <div class="col-md-4 col-xs-6">
                     <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>
-                    <img src={{ image.image_URL }} width="90%">
+                    <img src={{ image.image_URL }}>
                 </div>
         {% endfor %}
     </div>
