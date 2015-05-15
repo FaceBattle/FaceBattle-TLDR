@@ -1,6 +1,6 @@
 __author__ = 'luizfernando2'
 from FBClasses import Comment, Post, Person
-
+from facepy import GraphAPI
 
 def multiple_comment_json_serializer(entries):
     my_comment_list = []
@@ -42,11 +42,39 @@ def comment_serializer(comment_json):
     except KeyError:
         like_count = None
 
+    likes_set = set()
+    try:
+        likes_json = comment_json['likes']
+
+        for entry in likes_json['data']:
+            likes_set.add(person_serializer(entry))
+
+        if 'paging' in likes_json:
+            paging_json = likes_json['paging']
+            if 'next' in paging_json:
+                next_url = paging_json['next']
+                next_url = next_url.replace('https://graph.facebook.com/v2.3/', '', 1)
+                graph = GraphAPI()
+                likes_iterator = graph.get(path=next_url, page=True)
+
+                while True:
+                    try:
+                        likes_json = next(likes_iterator)
+                        for entry in likes_json['data']:
+                            likes_set.add(person_serializer(entry))
+                    except StopIteration:
+                        break
+
+    except KeyError:
+        pass
+
+
     return Comment(message=message,
                    id=id,
                    like_count=like_count,
                    owner=person,
-                   image_url=image_url
+                   image_url=image_url,
+                   like_set=likes_set
                    )
 
 

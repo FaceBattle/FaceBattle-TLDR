@@ -5,8 +5,11 @@ class Post:
         self.message = message
         self.id = id
         self.like_count = like_count
+        #likes = set of Person
+        self.likes = set()
         self.comment_count = comment_count
-        self.comments = None
+        #comments = array of Comment
+        self.comments = []
         self.owner = owner
         self.image_url = image_url
 
@@ -15,10 +18,11 @@ class Post:
 
 
 class Comment:
-    def __init__(self, message, id, like_count, owner, image_url):
+    def __init__(self, message, id, like_count, owner, image_url, like_set):
         self.message = message
         self.id = id
         self.like_count = like_count
+        self.likes = like_set
         self.owner = owner
         self.image_URL = image_url
 

@@ -6,8 +6,7 @@ from collections import Counter
 
 
 def summarize_post(id, token):
-    original_post_json = FacebookInterface.get_fb_post(id, token)
-    post = Serializers.post_serializer(original_post_json)
+    post = FacebookInterface.get_fb_post(id, token)
 
     #this may take a while
     post.comments = FacebookInterface.get_fb_comments(post.id, token)
