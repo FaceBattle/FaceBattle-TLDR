@@ -22,15 +22,10 @@ post = FacebookInterface.get_fb_post(id, token)
 post.comments = FacebookInterface.get_fb_comments(id, token)
 
 people_set = set()
-
 for comment in post.comments:
     people_set.add(comment.owner)
 
-    people_set.union(comment.likes)
+    people_set.update(comment.likes)
 
 for person in people_set:
     print(person.name)
-
-
-
-

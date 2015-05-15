@@ -16,6 +16,16 @@ class Post:
     def __str__(self):
         return "ID: {0} \n Likes: {1} \n Comments: {2}".format(self.id, self.like_count, self.comment_count)
 
+    def unique_people_set(self):
+        people_set = set()
+        for comment in self.comments:
+            people_set.add(comment.owner)
+
+            people_set.update(comment.likes)
+
+        return people_set
+
+
 
 class Comment:
     def __init__(self, message, id, like_count, owner, image_url, like_set):
