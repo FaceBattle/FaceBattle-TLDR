@@ -9,7 +9,6 @@ def genImage():
     #plot data
     plt.plot(x, y)
     fig = plt.gcf()
-
     imgdata = io.BytesIO()
     fig.savefig(imgdata, format='png')
     imgdata.seek(0)  # rewind the data

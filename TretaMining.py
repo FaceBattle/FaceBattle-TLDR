@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import io
 
 def getCircularGraph(clusters):
     G = nx.Graph()
@@ -31,4 +32,9 @@ def getFullGraph(clusters):
     # print(len(G.nodes()))
     # print(len(G.edges()))
     # plt.show()
+    fig = plt.gcf()
+    imgdata = io.BytesIO()
+    fig.savefig(imgdata, format='png')
+    imgdata.seek(0)  # rewind the data
+    return imgdata
 

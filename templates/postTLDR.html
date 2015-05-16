@@ -76,11 +76,35 @@
     {% endfor %}
     </div>
 
+
+    <div class="row">
+        <div class="col-md-12">
+            <H3 class="page-header">Mais Importantes</H3>
+         </div>
+    {% for group in most_important_people %}
+        <h4 align="center">Grupo:  {{ group[0].group_number }}</h4>
+        {% for person in group %}
+            <div class="row">
+                <h5 align="center">{{person.name}} - Grupo: {{ person.group_number }}</h5>
+            </div>
+            <div class="row">
+                <center>
+                <a href="#">
+                    <img class="img-circle"
+                         src="http://graph.facebook.com/{{person.id}}/picture?width=150&height=150"
+                         alt="profile picture"
+                            >
+                </a>
+                </center>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <H3 class="page-header">As melhores frase</H3>
         </div>
-        <!--<ul id="summ2" class="media-list">-->
 
         {% for item in summarized_comments %}
             <div class="col-md-4" style="padding-bottom: 20px">
@@ -98,19 +122,18 @@
             </div>
         {% endfor %}
     </div>
-    <!--</ul>-->
-{##}
-{#    <div class="row">#}
-{#        <div class="col-md-12">#}
-{#            <H3 class="page-header">Imagens!</H3>#}
-{#        </div>#}
-{#        {% for image in images %}#}
-{#                <div class="col-md-4 col-xs-6">#}
-{#                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>#}
-{#                    <img src={{ image.image_URL }}>#}
-{#                </div>#}
-{#        {% endfor %}#}
-{#    </div>#}
+
+    <div class="row">
+        <div class="col-md-12">
+            <H3 class="page-header">Imagens!</H3>
+        </div>
+        {% for image in images %}
+                <div class="col-md-4 col-xs-6">
+                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>
+                    <img src={{ image.image_URL }}>
+                </div>
+        {% endfor %}
+    </div>
 </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ __author__ = 'luizfernando2'
 
 import myPyTeaser
 import FacebookInterface
+import  Clusterer as cl
 from collections import Counter
 
 
@@ -31,3 +32,34 @@ def summarize_post(id, token):
     top3_commenters = commenter_counter.most_common(3)
     # return summarized_post, summarized_comments
     return post, summarized_post, summarized_comments, image_comment_list, top3_commenters
+
+
+
+
+def people_grouping(post):
+    max_clusters = 3
+    person_per_cluster = 3
+
+    people_list, clusters, most_important_people = cl.GetPeopleListAndClusterListAndMostImportantPeople(post)
+
+    new_group_list = []
+    new_most_important_people = []
+
+    for i in range(max_clusters):
+        new_most_important_people.append([])
+
+    for cluster_number, cluster in enumerate(clusters[:max_clusters]):
+        my_cluster_list = []
+        for person_adj_id in cluster:
+            people_list[person_adj_id].group_number = cluster_number
+            my_cluster_list.append(people_list[person_adj_id])
+        new_group_list.append(my_cluster_list)
+
+    for person_id in most_important_people:
+        group = (people_list[person_id]).group_number
+
+        if (group is not None and len(new_most_important_people[group]) < person_per_cluster):
+            new_most_important_people[group].append(people_list[person_id])
+
+
+    return new_group_list, new_most_important_people
