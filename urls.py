@@ -21,7 +21,6 @@ def make_tldr():
     post, summarized_post, summarized_comments, images, top_commenters = summarize_post(url.group(0), token)
     people_list, clusters = cl.GetPeopleListAndClusterList(post)
 
-    print(clusters)
 
     return render_template('postTLDR.html',
                            post=post,

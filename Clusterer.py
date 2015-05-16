@@ -1,6 +1,7 @@
 
 import numpy as np
 import TretaMining as TM
+from mcl_clustering import mcl
 
 def GetAdjMatrixAndPeopleList(post): #post.comments
     people_list = list(post.unique_people_set())
@@ -20,17 +21,15 @@ def GetAdjMatrixAndPeopleList(post): #post.comments
 
 
 def GetClusters(adj_matrix):
-    M, cluster = TM.mcl(adj_matrix, expand_factor=5, inflate_factor=3)
-    print(cluster)
+    M, cluster = mcl(adj_matrix, expand_factor=5, inflate_factor=3)
+
     TM.getFullGraph(cluster)
     cluster_list = []
     for a in cluster.values():
         if a not in cluster_list:
             cluster_list.append(a)
-    sorted(cluster_list)
-    cluster_list = list(reversed(cluster_list))
-    for a in cluster_list:
-        print(a)
+    cluster_list.sort(reverse=True)
+
     return cluster_list
 
 def GetPeopleListAndClusterList(post): #post
