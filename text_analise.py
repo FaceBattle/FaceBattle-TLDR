@@ -1,8 +1,5 @@
 __author__ = 'danielpazinato'
 
-
-__author__ = 'danielpazinato'
-
 import pickle
 import unicodedata
 import string
@@ -15,6 +12,7 @@ from stop_words import get_stop_words
 from wordcloud import WordCloud
 from os import path
 import matplotlib.pyplot as plt
+import math
 
 
 def remove_accents(line):
@@ -50,7 +48,7 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
 
     file_name = "texts_files/freq_portugues"
     dict_freq = pickle.load( open(file_name +".p", "rb" ) )
-    web_stopWords = ["q","vc","vcs","tipo","ta","pra","pq","ne","sobre"]
+    web_stopWords = ["q","vc","vcs","tipo","ta","pra","pq","ne","sobre","ser","cara","la"]
 
     all_comments = remove_accents(all_comments)
     tokens = all_comments.split()
@@ -71,6 +69,10 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
     for word in stopWords:
         dict_tokens.pop(remove_accents(word), None);
 
+    #for word in dict_tokens:
+    #    print(dict_tokens[token])
+    #    dict_tokens[token] = 1+math.log(dict_tokens[token])
+
     #sorted by frequency
     sorted_tokens = sorted(dict_tokens.items(), key=operator.itemgetter(1),reverse=True)
     num_tokens = int(min(len(sorted_tokens)/2, 1000))
@@ -82,11 +84,13 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
     for i in range(len(sorted_tokens)):
         (token,value) = sorted_tokens[i]
         if token in dict_freq:
-            sorted_tokens[i] = (token,value/dict_freq[token])
+            sorted_tokens[i] = (token, math.log(value/dict_freq[token]))
         else:
-            sorted_tokens[i] = (token,value/standart_frequency)
+            sorted_tokens[i] = (token,math.log(value/standart_frequency))
 
     sorted_tokens_after = sorted(sorted_tokens,key=operator.itemgetter(1), reverse=True)
+    max_num_words = 100
+    sorted_tokens_after = sorted_tokens_after[0:max_num_words]
 
     #print(sorted_tokens)
     #wordcloud = WordCloud(font_path="~/Library/Fonts/Arial.ttf")
@@ -94,7 +98,7 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
 
     #print(sorted_tokens_after)
 
-    wordcloud = WordCloud(width= _width,height= _height,font_path="~/Library/Fonts/Arial.ttf").generate_from_frequencies(sorted_tokens_after)
+    wordcloud = WordCloud( width= _width,height= _height,font_path="~/Library/Fonts/Arial.ttf").generate_from_frequencies(sorted_tokens_after)
     # Open a plot of the generated image.
     plt.imshow(wordcloud)
     plt.axis("off")

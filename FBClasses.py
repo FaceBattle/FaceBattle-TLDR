@@ -20,7 +20,6 @@ class Post:
         people_set = set()
         for comment in self.comments:
             people_set.add(comment.owner)
-
             people_set.update(comment.likes)
 
         return people_set
