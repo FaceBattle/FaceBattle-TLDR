@@ -2,6 +2,8 @@
 import numpy as np
 import TretaMining as TM
 
+the_adj_matrix = []
+
 def GetAdjMatrixAndPeopleList(post): #post.comments
     people_list = list(post.unique_people_set())
     people_dict = {}
@@ -16,21 +18,21 @@ def GetAdjMatrixAndPeopleList(post): #post.comments
             adj_matrix[j_pos, i_pos] += 1
     for i in range(0, len(adj_matrix[3])):
         adj_matrix[i, i] = 1
+    the_adj_matrix = adj_matrix
     return adj_matrix, people_list
 
 
 def GetClusters(adj_matrix):
     M, cluster = TM.mcl(adj_matrix, expand_factor=5, inflate_factor=3)
-    print(cluster)
+    #print(cluster)
     TM.getFullGraph(cluster)
     cluster_list = []
     for a in cluster.values():
         if a not in cluster_list:
             cluster_list.append(a)
-    sorted(cluster_list)
-    cluster_list = list(reversed(cluster_list))
-    for a in cluster_list:
-        print(a)
+    cluster_list.sort(reverse=True)
+    #for a in cluster_list:
+        #print(a)
     return cluster_list
 
 def GetPeopleListAndClusterList(post): #post
@@ -38,4 +40,11 @@ def GetPeopleListAndClusterList(post): #post
     cluster_list = GetClusters(adj_matrix)
     return people_list, cluster_list
 
-
+def GetMostImportantPeople():
+    people = []
+    for i, people in enumerate(the_adj_matrix):
+        people.append(0)
+        for j, other_people in enumerate(the_adj_matrix[i]):
+            people[i] += the_adj_matrix[i][j]
+    people.sort(reverse=True)
+    return people
