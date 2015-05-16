@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from mcl_clustering import mcl
 
 def getCircularGraph(clusters):
     G = nx.Graph()

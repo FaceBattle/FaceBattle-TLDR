@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, send_file
 from TLDR import summarize_post
 import re
-from io import StringIO
 from imageGenTest import genImage
+import Clusterer as cl
 
 app = Flask(__name__)
 app.debug = True
@@ -17,7 +17,11 @@ def make_tldr():
     url = request.form['posturl']
     url = re.search('(\d)+', url)
     token = request.form['authtoken']
+
     post, summarized_post, summarized_comments, images, top_commenters = summarize_post(url.group(0), token)
+    people_list, clusters = cl.GetPeopleListAndClusterList(post)
+
+    print(clusters)
 
     return render_template('postTLDR.html',
                            post=post,
