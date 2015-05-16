@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, send_file
 from TLDR import summarize_post, people_grouping
 import re
 from imageGenTest import genImage
-import Clusterer as cl
 
 app = Flask(__name__)
 app.debug = True

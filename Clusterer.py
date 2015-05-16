@@ -26,7 +26,7 @@ def GetClustersOp2(adjMatrix):
     for a in cluster.values():
         if a not in cluster_list:
             cluster_list.append(a)
-    cluster_list.sort(reverse=True)
+    cluster_list.sort(key=len, reverse=True)
     return cluster_list
 
 def GetClusters(adj_matrix):
@@ -43,7 +43,7 @@ def GetClusters(adj_matrix):
 
 def GetPeopleListAndClusterListAndMostImportantPeople(post): #post
     adj_matrix, people_list = GetAdjMatrixAndPeopleList(post)
-    cluster_list = GetClusters(adj_matrix)
+    cluster_list = GetClustersOp2(adj_matrix)
     most_important_people = GetMostImportantPeople(adj_matrix)
 
     return people_list, cluster_list, most_important_people

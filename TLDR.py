@@ -51,13 +51,12 @@ def people_grouping(post):
     for cluster_number, cluster in enumerate(clusters[:max_clusters]):
         my_cluster_list = []
         for person_adj_id in cluster:
-            person = people_list[person_adj_id]
-            person.group_number = cluster_number
-            my_cluster_list.append(person)
+            people_list[person_adj_id].group_number = cluster_number
+            my_cluster_list.append(people_list[person_adj_id])
         new_group_list.append(my_cluster_list)
 
     for person_id in most_important_people:
-        group = people_list[person_id].group_number
+        group = (people_list[person_id]).group_number
 
         if (group is not None and len(new_most_important_people[group]) < person_per_cluster):
             new_most_important_people[group].append(people_list[person_id])
