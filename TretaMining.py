@@ -13,10 +13,10 @@ def getCircularGraph(clusters):
                     if (i == len(cluster)-1):
                         G.add_edge(each_node, first)
                     prev = each_node
-    print(len(G.nodes()))
-    print(len(G.edges()))
-    nx.draw(G)
-    plt.show()
+    # print(len(G.nodes()))
+    # print(len(G.edges()))
+    # nx.draw(G)
+    # plt.show()
 
 
 def getFullGraph(clusters):
@@ -27,8 +27,8 @@ def getFullGraph(clusters):
                     for b in cluster:
                             if a != b:
                                 G.add_edge(a, b)
-    nx.draw(G)
-    print(len(G.nodes()))
-    print(len(G.edges()))
-    plt.show()
+    # nx.draw(G)
+    # print(len(G.nodes()))
+    # print(len(G.edges()))
+    # plt.show()
 
