@@ -63,3 +63,29 @@ def people_grouping(post):
 
 
     return new_group_list, new_most_important_people
+
+def GetTopPostsFromTopGroups(group_list, comments):
+    v = [0, 0, 0]
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = []
+    ans.append([])
+    ans.append([])
+    ans.append([])
+    for comment in a:
+        if comment.owner in group_list[0] and v[0] < 2:
+            v[0] += 1
+            ans[0].append(comment)
+        if comment.owner in group_list[1] and v[1] < 2:
+            v[1] += 1
+            ans[1].append(comment)
+        if comment.owner in group_list[2] and v[2] < 2:
+            v[2] += 1
+            ans[2].append(comment)
+    #print(ans[0][0].like_count)
+    #print(ans[0][1].like_count)
+    #print(ans[1][0].like_count)
+    #print(ans[1][1].like_count)
+    #print(ans[2][0].like_count)
+    #print(ans[2][1].like_count)
+    return ans
