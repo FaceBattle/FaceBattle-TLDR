@@ -4,8 +4,8 @@
     <title>My Webpage</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 </head>
 
 <body>
@@ -99,18 +99,18 @@
         {% endfor %}
     </div>
     <!--</ul>-->
-
-    <div class="row">
-        <div class="col-md-12">
-            <H3 class="page-header">Imagens!</H3>
-        </div>
-        {% for image in images %}
-                <div class="col-md-4 col-xs-6">
-                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>
-                    <img src={{ image.image_URL }}>
-                </div>
-        {% endfor %}
-    </div>
+{##}
+{#    <div class="row">#}
+{#        <div class="col-md-12">#}
+{#            <H3 class="page-header">Imagens!</H3>#}
+{#        </div>#}
+{#        {% for image in images %}#}
+{#                <div class="col-md-4 col-xs-6">#}
+{#                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>#}
+{#                    <img src={{ image.image_URL }}>#}
+{#                </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
 </div>
 </body>
 </html>
