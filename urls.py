@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from TLDR import summarize_post
 import re
-
+from io import StringIO
+from imageGenTest import genImage
 
 app = Flask(__name__)
 app.debug = True
@@ -25,6 +26,11 @@ def make_tldr():
                            images=images[:6],
                            top_commenters=top_commenters
                            )
+
+@app.route('/fig/')
+def fig():
+    img = genImage()
+    return send_file(img, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
