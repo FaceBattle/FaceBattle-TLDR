@@ -1,5 +1,5 @@
 __author__ = 'luizfernando2'
-import Serializers
+
 import myPyTeaser
 import FacebookInterface
 from collections import Counter
