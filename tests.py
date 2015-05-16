@@ -29,7 +29,7 @@ people_list = list(people_set)
 
 people_dict = {}
 for i, person in enumerate(people_list):
-    people_dict[str(person.id)] = 1
+    people_dict[str(person.id)] = i
 
 adj_matrix = np.zeros((len(people_list), len(people_list)))
 
