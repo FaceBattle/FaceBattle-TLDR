@@ -3,6 +3,7 @@ __author__ = 'luizfernando2'
 import myPyTeaser
 import FacebookInterface
 import  Clusterer as cl
+import matplotlib.pyplot as pyplot
 from collections import Counter
 
 
@@ -82,10 +83,29 @@ def GetTopPostsFromTopGroups(group_list, comments):
         if comment.owner in group_list[2] and v[2] < 2:
             v[2] += 1
             ans[2].append(comment)
-    #print(ans[0][0].like_count)
-    #print(ans[0][1].like_count)
-    #print(ans[1][0].like_count)
-    #print(ans[1][1].like_count)
-    #print(ans[2][0].like_count)
-    #print(ans[2][1].like_count)
+    # ans [2][3]
     return ans
+
+
+def GetLikesInTimeFromTopGroups(comments, group_list):
+    dict = {}
+    likes = [[], [], []]
+    v = [0, 0, 0]
+    for i, comment in enumerate(comments):
+        if comment.owner in group_list[0]:
+            v[0] += 1
+        if comment.owner in group_list[1]:
+            v[1] += 1
+        if comment.owner in group_list[2]:
+            v[2] += 1
+        dict[i] = v[0], v[1], v[2]
+        likes[0].append(v[0])
+        likes[1].append(v[1])
+        likes[2].append(v[2])
+    #print(dict)
+    return dict
+    #pyplot.plot(range(0, len(comments)), errors[0], "r--", range(0, len(comments)), errors[1], 'bs', range(0, len(comments)), errors[2], "g^")
+    #pyplot.axis([0, len(comments) , 0, max(v[0], max(v[1], v[2]))])
+    #pyplot.ylabel('Number of Likes')
+    #pyplot.xlabel('Number of Comments posted')
+    #pyplot.show()
