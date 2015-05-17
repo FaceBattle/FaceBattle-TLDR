@@ -45,8 +45,6 @@ def freq_comment(all_comments, _width = 1200, _height = 1000, save_file_name= 't
     file_name = os.path.join(APP_STATIC, 'freq_portugues.p')
     dict_freq = pickle.load(open(file_name, "rb" ) )
 
-    file_name = "texts_files/freq_portugues"
-    dict_freq = pickle.load( open(file_name +".p", "rb" ) )
     web_stopWords = ["q","vc","vcs","tipo","ta","pra","pq","ne","sobre","ser","cara","la"]
 
     all_comments = remove_accents(all_comments)
