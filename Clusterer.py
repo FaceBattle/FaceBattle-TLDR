@@ -15,9 +15,14 @@ def GetAdjMatrixAndPeopleList(post): #post.comments
             j_pos = people_dict[str(person.id)]
             adj_matrix[i_pos, j_pos] += 1
             adj_matrix[j_pos, i_pos] += 1
-    for i in range(0, len(adj_matrix[3])):
+    for i in range(0, len(adj_matrix[0])):
         adj_matrix[i, i] = 1
-    return adj_matrix, people_list
+    important_people = GetMostImportantPeople(adj_matrix)
+    new_adj_matrix = np.zeros((len(people_list), len(people_list)))
+    for i, vips in enumerate(important_people):
+        for j, ele in enumerate(adj_matrix[i]):
+            new_adj_matrix[i][j] = adj_matrix[i][j]
+    return new_adj_matrix, people_list
 
 def GetClustersOp2(adjMatrix):
     cluster = agglomod.getClustersDictionary(adjMatrix)

@@ -1,8 +1,13 @@
 from flask import Flask, render_template, request, send_file
+<<<<<<< HEAD
 from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
     MakeWordCloudFromTopGroups
+=======
+from TLDR import summarize_post, people_grouping, GetLikesInTimeFromTopGroups
+>>>>>>> 016e61ed9bdd7eb3499aaaa2e91eab5f7ec1dc29
 import re
 from imageGenTest import genImage
+import HTMLCreatorOfLikesGraph
 import Clusterer
 import math
 
@@ -32,6 +37,8 @@ def make_tldr():
     top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
     MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
 
+    HTMLCreatorOfLikesGraph.create(dict)
+
     if summarized_post is not None:
         summarized_post = summarized_post[0]
 
@@ -55,10 +62,12 @@ def make_tldr():
     n_people = min(len(people_list),100)
     people_list = people_list[0:n_people]
 
+
+
     for i in range(n_people):
         for j in range(n_people):
             if adj_matrix[i][j] != 0:
-                adj_matrix[i][j] = min(math.log(3+adj_matrix[i][j]),30)
+                adj_matrix[i][j] = min(math.log(3+adj_matrix[i][j]),50)
 
     return render_template('postGraph.html',
                        post=post,
