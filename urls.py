@@ -26,7 +26,7 @@ def make_tldr():
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
     # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
-    MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+    # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
     word_array = GetFreqFromAllComments(post.comments)
 
     mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
