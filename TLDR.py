@@ -26,6 +26,7 @@ def summarize_post(id, token):
 
     image_comment_list.sort(reverse=True, key=lambda x: x.like_count)
 
+
     summarized_post = myPyTeaser.Summarize('', post.message) if post.message is not None else None
 
     summarized_comments, keywords = myPyTeaser.SummarizeComments(post.message if post.message is not None else '', post.comments)
@@ -83,6 +84,7 @@ def GetTopPostsFromTopGroups(group_list, comments):
         if comment.owner in group_list[2] and v[2] < 2:
             v[2] += 1
             ans[2].append(comment)
+
     # ans [2][3]
     return ans
 
