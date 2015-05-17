@@ -62,6 +62,8 @@ def make_tldr():
                 if adj_matrix[i][j] != 0:
                     adj_matrix[i][j] = (adj_matrix[i][j] - min_weight)/(max_weight - min_weight)
 
+    n_people = min(len(adj_matrix),120)
+
     return render_template('postGraph.html',
                        post=post,
                        summarized_comments=summarized_comments[:6],
@@ -71,8 +73,8 @@ def make_tldr():
                        most_important_people = most_important_people,
                        adj_matrix = adj_matrix,
                        people_list = people_list,
-                       all_important_people_ids  = most_important_people_ids[:80],
-                       all_important_people_weights = important_weights[:80],
+                       all_important_people_ids  = most_important_people_ids[:n_people],
+                       all_important_people_weights = important_weights[:n_people],
                        # n_people = n_people
                        )
 
