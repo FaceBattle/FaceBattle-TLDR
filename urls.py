@@ -54,10 +54,12 @@ def make_tldr():
     n_people = min(len(people_list),100)
     people_list = people_list[0:n_people]
 
+
+
     for i in range(n_people):
         for j in range(n_people):
             if adj_matrix[i][j] != 0:
-                adj_matrix[i][j] = min(math.log(3+adj_matrix[i][j]),30)
+                adj_matrix[i][j] = min(math.log(3+adj_matrix[i][j]),50)
 
     return render_template('postGraph.html',
                        post=post,
