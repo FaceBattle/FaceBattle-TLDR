@@ -3,7 +3,6 @@ __author__ = 'danielpazinato'
 import pickle
 import unicodedata
 import string
-import nltk
 import operator
 import unicodedata
 import re

@@ -1,41 +1,36 @@
-__author__ = 'danielpazinato'
-
 import pickle
-import unicodedata
-import string
-import nltk
+
 import operator
 import unicodedata
 import re
-import codecs
 from stop_words import get_stop_words
 from wordcloud import WordCloud
-from os import path
-import matplotlib.pyplot as plt
+import os
 import math
-
 
 def remove_accents(line):
     no_accent = ''.join((c for c in unicodedata.normalize('NFD', line) if unicodedata.category(c) != 'Mn')).lower()
     return re.sub(r'[^a-zA-Z0-9 ]', '', no_accent)
     #return no_accent
 
-def save_dict(file_name):
-    total_freq = 59384218 #total number of frequecies
-
-    dict_freq = {}
-    fobj = codecs.open(file_name, mode = 'r', encoding = 'utf-8')
-    for line in fobj:
-        value = line.split()
-        if len(value) == 2:
-            dict_freq[remove_accents(value[1])] = int(value[0])/total_freq
-
-    pickle.dump(dict_freq, open(file_name +".p", "wb" ))
+# def save_dict(file_name):
+#     total_freq = 59384218 #total number of frequecies
+#
+#     dict_freq = {}
+#     fobj = codecs.open(file_name, mode = 'r', encoding = 'utf-8')
+#     for line in fobj:
+#         value = line.split()
+#         if len(value) == 2:
+#             dict_freq[remove_accents(value[1])] = int(value[0])/total_freq
+#
+#     pickle.dump(dict_freq, open(file_name +".p", "wb" ))
 
 
 def frequency(word):
-    file_name = "texts_files/freq_portugues"
-    dict_freq = pickle.load( open(file_name +".p", "rb" ) )
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    APP_STATIC = os.path.join(APP_ROOT, 'static')
+    file_name = os.path.join(APP_STATIC, 'freq_portugues.p')
+    dict_freq = pickle.load(open(file_name, "rb" ) )
 
     if word in dict_freq:
         return dict_freq[remove_accents(word)]
@@ -44,10 +39,12 @@ def frequency(word):
 
 #receive a string with all comments
 #return a image with the worldCloud
-def freq_comment(all_comments, _width = 1200, _height = 1000):
+def freq_comment(all_comments, _width = 1200, _height = 1000, save_file_name= 'tmp'):
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    APP_STATIC = os.path.join(APP_ROOT, 'static')
+    file_name = os.path.join(APP_STATIC, 'freq_portugues.p')
+    dict_freq = pickle.load(open(file_name, "rb" ) )
 
-    file_name = "texts_files/freq_portugues"
-    dict_freq = pickle.load( open(file_name +".p", "rb" ) )
     web_stopWords = ["q","vc","vcs","tipo","ta","pra","pq","ne","sobre","ser","cara","la"]
 
     all_comments = remove_accents(all_comments)
@@ -63,11 +60,12 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
 
     #remove stop words
     stopWords = get_stop_words('portuguese', cache=True)
+    stopWords += get_stop_words('english', cache=True)
     stopWords += web_stopWords
 
     #remove stop words
     for word in stopWords:
-        dict_tokens.pop(remove_accents(word), None);
+        dict_tokens.pop(remove_accents(word), None)
 
     #for word in dict_tokens:
     #    print(dict_tokens[token])
@@ -92,19 +90,13 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
     max_num_words = 100
     sorted_tokens_after = sorted_tokens_after[0:max_num_words]
 
-    #print(sorted_tokens)
-    #wordcloud = WordCloud(font_path="~/Library/Fonts/Arial.ttf")
-    #wordcloud.generate("eu sou legal mas eu tambem sou mais sou bom e e aa a a")
+    wordcloud = WordCloud(width= _width,height= _height,font_path="Arial.ttf").generate_from_frequencies(sorted_tokens_after)
 
-    #print(sorted_tokens_after)
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    APP_STATIC = os.path.join(APP_ROOT, 'tmp')
+    save_file_name = os.path.join(APP_STATIC, save_file_name + '.png')
 
-    wordcloud = WordCloud( width= _width,height= _height,font_path="~/Library/Fonts/Arial.ttf").generate_from_frequencies(sorted_tokens_after)
-    # Open a plot of the generated image.
-    plt.imshow(wordcloud)
-    plt.axis("off")
-    plt.show()
-
-    return wordcloud
+    wordcloud.to_file(save_file_name)
 
 
 #file_name = "texts_files/freq_portugues"

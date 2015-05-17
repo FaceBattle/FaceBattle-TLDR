@@ -3,12 +3,12 @@ __author__ = 'luizfernando2'
 import myPyTeaser
 import FacebookInterface
 import  Clusterer as cl
-import matplotlib.pyplot as pyplot
 from collections import Counter
-
+from text_analise import freq_comment
 
 def summarize_post(id, token):
-    post = FacebookInterface.get_fb_post(id, token)
+    # post = FacebookInterface.get_fb_post(id, token)
+    post = FacebookInterface.get_fb_page_post(id, token)
 
     #this may take a while
     post.comments = FacebookInterface.get_fb_comments(post.id, token)
@@ -44,6 +44,7 @@ def people_grouping(post):
 
     people_list, clusters, most_important_people = cl.GetPeopleListAndClusterListAndMostImportantPeople(post)
 
+    print(most_important_people)
     new_group_list = []
     new_most_important_people = []
 
@@ -58,6 +59,7 @@ def people_grouping(post):
         new_group_list.append(my_cluster_list)
 
     for person_id in most_important_people:
+        print(person_id)
         group = (people_list[person_id]).group_number
 
         if (group is not None and len(new_most_important_people[group]) < person_per_cluster):
@@ -84,8 +86,49 @@ def GetTopPostsFromTopGroups(group_list, comments):
         if comment.owner in group_list[2] and v[2] < 2:
             v[2] += 1
             ans[2].append(comment)
+    return ans
 
-    # ans [2][3]
+def GetTopImagesFromTopGroups(group_list, comments):
+    v = [0, 0, 0]
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = []
+    ans.append([])
+    ans.append([])
+    ans.append([])
+    for comment in a:
+        if comment.image_URL is not None:
+            if comment.owner in group_list[0] and v[0] < 2:
+                v[0] += 1
+                ans[0].append(comment)
+            if comment.owner in group_list[1] and v[1] < 2:
+                v[1] += 1
+                ans[1].append(comment)
+            if comment.owner in group_list[2] and v[2] < 2:
+                v[2] += 1
+                ans[2].append(comment)
+    return ans
+
+
+def MakeWordCloudFromTopGroups(group_list, comments, post_id):
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = []
+    ans.append('')
+    ans.append('')
+    ans.append('')
+    for comment in a:
+        if comment.owner in group_list[0]:
+            ans[0] += '. ' + comment.message
+        elif comment.owner in group_list[1]:
+            ans[1] += '. ' + comment.message
+        elif comment.owner in group_list[2]:
+            ans[2] += '. ' + comment.message
+
+    freq_comment(ans[0], _width=400, _height=400, save_file_name=post_id+'_0')
+    freq_comment(ans[1], _width=400, _height=400, save_file_name=post_id+'_1')
+    freq_comment(ans[2], _width=400, _height=400, save_file_name=post_id+'_2')
+
     return ans
 
 
@@ -104,10 +147,4 @@ def GetLikesInTimeFromTopGroups(comments, group_list):
         likes[0].append(v[0])
         likes[1].append(v[1])
         likes[2].append(v[2])
-    #print(dict)
     return dict
-    #pyplot.plot(range(0, len(comments)), errors[0], "r--", range(0, len(comments)), errors[1], 'bs', range(0, len(comments)), errors[2], "g^")
-    #pyplot.axis([0, len(comments) , 0, max(v[0], max(v[1], v[2]))])
-    #pyplot.ylabel('Number of Likes')
-    #pyplot.xlabel('Number of Comments posted')
-    #pyplot.show()
