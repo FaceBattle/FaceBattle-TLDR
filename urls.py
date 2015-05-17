@@ -12,9 +12,9 @@ app.debug = True
 @app.route('/tldr/', methods=['POST'])
 def make_tldr():
     url = request.form['posturl']
-    url = re.search('(\d)+', url)
+    url = re.findall('\/(\d+)\/', url + '/')
     token = request.form['authtoken']
-    id = url.group(0)
+    id = url[-1:]
 
     print("COMECANDO")
 
