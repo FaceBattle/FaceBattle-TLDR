@@ -23,3 +23,9 @@ def get_fb_post(id, token):
     original_post_json = graph.get(path=id+'?fields=attachments,message,id,from,likes.limit(1).summary(true),comments.limit(1).summary(true)',
               page=False)
     return Serializers.post_serializer(original_post_json)
+
+def get_fb_page_post(id, token):
+    graph = GraphAPI(token)
+    original_post_json = graph.get(path=id+'?fields=message,id,from,likes.limit(1).summary(true),comments.limit(1).summary(true)',
+              page=False)
+    return Serializers.post_serializer(original_post_json)

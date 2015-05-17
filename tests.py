@@ -6,11 +6,12 @@ import numpy as np
 # import Serializers
 from facepy import GraphAPI
 
-token = 'CAAGjwjYj5jQBAAsnRasZBwRsZCoJ9bLdBH607YghIGAypOfnoMYu8gEEktUXxa61p3y3jZCZCM8vXVIoqwZA6VZCbGb1IZBWjm9fxaNDgv8Yru5VYtjWv64CAGCZByT6BDgduQN3i2m9UkFuVMiqw5avklIzLZBYQtycaPORVn0UZAqEECtJ9dSSOOiP2LnyolmylLHAyJAtGIWVmrOGrTeEBp'
-id = '10153217214370446'
+token = 'CAACEdEose0cBALH5cM2ZCNIrRmbgc6HqZAiENElw49RzTvYZAoZBhzZCpgFQI1gbG9opbcKY72EdZAyGNTC9aemufEggkGjYnUXJWlZAER8ut615sDymDeLS6YFHqs6eiCCRlY6JV9Q0a4Kk5sQ9jVvggm36r5rZBX3PMZAi4NhimamIsWyZAyXpazMmNAE3bVdE5f1n8DqUU3NqbZAp0SSS92d'
+id = '10155851428715206'
 
-post = FacebookInterface.get_fb_post(id, token)
+post = FacebookInterface.get_fb_page_post(id, token)
 post.comments = FacebookInterface.get_fb_comments(id, token)
+
 #
 # people_set = post.unique_people_set()
 #

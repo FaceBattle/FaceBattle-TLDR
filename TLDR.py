@@ -4,10 +4,11 @@ import myPyTeaser
 import FacebookInterface
 import  Clusterer as cl
 from collections import Counter
-
+from text_analise import freq_comment
 
 def summarize_post(id, token):
-    post = FacebookInterface.get_fb_post(id, token)
+    # post = FacebookInterface.get_fb_post(id, token)
+    post = FacebookInterface.get_fb_page_post(id, token)
 
     #this may take a while
     post.comments = FacebookInterface.get_fb_comments(post.id, token)
@@ -82,10 +83,45 @@ def GetTopPostsFromTopGroups(group_list, comments):
         if comment.owner in group_list[2] and v[2] < 2:
             v[2] += 1
             ans[2].append(comment)
-    #print(ans[0][0].like_count)
-    #print(ans[0][1].like_count)
-    #print(ans[1][0].like_count)
-    #print(ans[1][1].like_count)
-    #print(ans[2][0].like_count)
-    #print(ans[2][1].like_count)
     return ans
+
+def GetTopImagesFromTopGroups(group_list, comments):
+    v = [0, 0, 0]
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = []
+    ans.append([])
+    ans.append([])
+    ans.append([])
+    for comment in a:
+        if comment.image_URL is not None:
+            if comment.owner in group_list[0] and v[0] < 2:
+                v[0] += 1
+                ans[0].append(comment)
+            if comment.owner in group_list[1] and v[1] < 2:
+                v[1] += 1
+                ans[1].append(comment)
+            if comment.owner in group_list[2] and v[2] < 2:
+                v[2] += 1
+                ans[2].append(comment)
+    return ans
+
+
+def MakeWordCloudFromTopGroups(group_list, comments, post_id):
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = []
+    ans.append('')
+    ans.append('')
+    ans.append('')
+    for comment in a:
+        if comment.owner in group_list[0]:
+            ans[0] += '. ' + comment.message
+        elif comment.owner in group_list[1]:
+            ans[1] += '. ' + comment.message
+        elif comment.owner in group_list[2]:
+            ans[2] += '. ' + comment.message
+
+    freq_comment(ans[0], _width=400, _height=400, save_file_name=post_id+'_0')
+    freq_comment(ans[1], _width=400, _height=400, save_file_name=post_id+'_1')
+    freq_comment(ans[2], _width=400, _height=400, save_file_name=post_id+'_2')
