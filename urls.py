@@ -1,10 +1,6 @@
 from flask import Flask, render_template, request, send_file
-<<<<<<< HEAD
 from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
     MakeWordCloudFromTopGroups
-=======
-from TLDR import summarize_post, people_grouping, GetLikesInTimeFromTopGroups
->>>>>>> 016e61ed9bdd7eb3499aaaa2e91eab5f7ec1dc29
 import re
 from imageGenTest import genImage
 import HTMLCreatorOfLikesGraph
@@ -37,37 +33,34 @@ def make_tldr():
     top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
     MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
 
-    HTMLCreatorOfLikesGraph.create(dict)
+    # HTMLCreatorOfLikesGraph.create(dict)
 
     if summarized_post is not None:
         summarized_post = summarized_post[0]
 
 
-    return render_template('postTLDR.html',
-                           post=post,
-                           summarized_comments=summarized_comments[:6],
-                           summarized_post=summarized_post,
-                           images=images[:6],
-                           top_images_in_groups=top_images,
-                           top_comments=top_comments,
-                           top_commenters=top_commenters,
-                           most_important_people=most_important_people
-                           )
+    # return render_template('postTLDR.html',
+    #                        post=post,
+    #                        summarized_comments=summarized_comments[:6],
+    #                        summarized_post=summarized_post,
+    #                        images=images[:6],
+    #                        top_images_in_groups=top_images,
+    #                        top_comments=top_comments,
+    #                        top_commenters=top_commenters,
+    #                        most_important_people=most_important_people
+    #                        )
 
     adj_matrix, people_list = Clusterer.GetAdjMatrixAndPeopleList(post)
-    all_important_people = Clusterer.GetMostImportantPeople(adj_matrix)
+    most_important_people_ids, important_weights = Clusterer.GetMostImportantPeople(adj_matrix)
 
-    print("TERMINOU MOST IMPORTANT")
+    max_weight = max([max(x) for x in adj_matrix])
+    min_weight = min([min(x) for x in adj_matrix])
 
-    n_people = min(len(people_list),100)
-    people_list = people_list[0:n_people]
-
-
-
-    for i in range(n_people):
-        for j in range(n_people):
-            if adj_matrix[i][j] != 0:
-                adj_matrix[i][j] = min(math.log(3+adj_matrix[i][j]),50)
+    if max_weight!=min_weight:
+        for i in range(len(adj_matrix)):
+            for j in range(len(adj_matrix)):
+                if adj_matrix[i][j] != 0:
+                    adj_matrix[i][j] = (adj_matrix[i][j] - min_weight)/(max_weight - min_weight)
 
     return render_template('postGraph.html',
                        post=post,
@@ -78,8 +71,9 @@ def make_tldr():
                        most_important_people = most_important_people,
                        adj_matrix = adj_matrix,
                        people_list = people_list,
-                       all_important_people  = all_important_people,
-                       n_people = n_people
+                       all_important_people_ids  = most_important_people_ids[:80],
+                       all_important_people_weights = important_weights[:80],
+                       # n_people = n_people
                        )
 
 

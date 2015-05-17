@@ -48,17 +48,17 @@
 
       nodes = [
 
-          {% for person in people_list %}
-              { id: {{ loop.index0|e }},  label: "{{ person.name|e }}" ,shape: 'circularImage', value: {{ all_important_people[loop.index0]|e }} , image : "http://graph.facebook.com/{{person.id}}/picture?width=50&height=50",
-                  group: {%if person.group_number == None %} {{ -1 }} {%else %} {{ person.group_number|e }} {% endif %} },
+          {% for person_id in all_important_people_ids%}
+              { id: {{ person_id|e }}, label: "{{ people_list[person_id].name|e }}" ,shape: 'circularImage', value: {{ all_important_people_weights[loop.index0]|e }} , image : "http://graph.facebook.com/{{people_list[person_id].id}}/picture?width=50&height=50",
+                  group: {%if people_list[person_id].group_number == None %} {{ -1 }} {%else %} {{ people_list[person_id].group_number|e }} {% endif %} },
           {% endfor %}
       ];
 
       // create connetions between people
       // value corresponds with the amount of contact between two people
       edges = [
-        {% for i in range(n_people) %} {% for j in range(i,n_people) %} {%if adj_matrix[i][j] != 0 and i != j %}
-            {from: {{ i }}, to: {{ j }}, value: {{ adj_matrix[i][j] }} },
+        {% for i in all_important_people_ids %} {% for j in all_important_people_ids %} {%if adj_matrix[i][j] > 0.05 and i != j %}
+            {from: {{ i }}, to: {{ j }} },
           {% endif %}{% endfor %}{% endfor %}
       ];
 

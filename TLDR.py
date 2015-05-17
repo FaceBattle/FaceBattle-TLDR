@@ -44,6 +44,7 @@ def people_grouping(post):
 
     people_list, clusters, most_important_people = cl.GetPeopleListAndClusterListAndMostImportantPeople(post)
 
+    print(most_important_people)
     new_group_list = []
     new_most_important_people = []
 
@@ -58,6 +59,7 @@ def people_grouping(post):
         new_group_list.append(my_cluster_list)
 
     for person_id in most_important_people:
+        print(person_id)
         group = (people_list[person_id]).group_number
 
         if (group is not None and len(new_most_important_people[group]) < person_per_cluster):
