@@ -88,19 +88,22 @@ def GetTopPostsFromTopGroups(group_list, comments):
 
 
 def GetLikesInTimeFromTopGroups(comments, group_list):
+    dict = {}
     likes = [[], [], []]
     v = [0, 0, 0]
-    for comment in comments:
+    for i, comment in enumerate(comments):
         if comment.owner in group_list[0]:
             v[0] += 1
         if comment.owner in group_list[1]:
             v[1] += 1
         if comment.owner in group_list[2]:
             v[2] += 1
+        dict[i] = v[0], v[1], v[2]
         likes[0].append(v[0])
         likes[1].append(v[1])
         likes[2].append(v[2])
-    return likes
+    #print(dict)
+    return dict
     #pyplot.plot(range(0, len(comments)), errors[0], "r--", range(0, len(comments)), errors[1], 'bs', range(0, len(comments)), errors[2], "g^")
     #pyplot.axis([0, len(comments) , 0, max(v[0], max(v[1], v[2]))])
     #pyplot.ylabel('Number of Likes')
