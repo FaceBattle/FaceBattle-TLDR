@@ -26,6 +26,7 @@ def summarize_post(id, token):
 
     image_comment_list.sort(reverse=True, key=lambda x: x.like_count)
 
+
     summarized_post = myPyTeaser.Summarize('', post.message) if post.message is not None else None
 
     summarized_comments, keywords = myPyTeaser.SummarizeComments(post.message if post.message is not None else '', post.comments)
@@ -125,3 +126,23 @@ def MakeWordCloudFromTopGroups(group_list, comments, post_id):
     freq_comment(ans[0], _width=400, _height=400, save_file_name=post_id+'_0')
     freq_comment(ans[1], _width=400, _height=400, save_file_name=post_id+'_1')
     freq_comment(ans[2], _width=400, _height=400, save_file_name=post_id+'_2')
+
+    return ans
+
+
+def GetLikesInTimeFromTopGroups(comments, group_list):
+    dict = {}
+    likes = [[], [], []]
+    v = [0, 0, 0]
+    for i, comment in enumerate(comments):
+        if comment.owner in group_list[0]:
+            v[0] += 1
+        if comment.owner in group_list[1]:
+            v[1] += 1
+        if comment.owner in group_list[2]:
+            v[2] += 1
+        dict[i] = v[0], v[1], v[2]
+        likes[0].append(v[0])
+        likes[1].append(v[1])
+        likes[2].append(v[2])
+    return dict
