@@ -1,0 +1,26 @@
+  ];
+  var dataset = new vis.DataSet(items);
+  var options = {
+      // start: '',
+      // end: '8'
+  };
+  var groups = new vis.DataSet();
+  groups.add({
+      id: 0,
+      content: 'Group 0',
+  });
+
+  groups.add({
+      id: 1,
+      content: 'Group 1',
+  });
+
+  groups.add({
+      id: 2,
+      content: 'Group 2',
+  });
+
+  var Graph2d_1 = new vis.Graph2d(container, dataset, groups);
+</script>
+</body>
+</html>

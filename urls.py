@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, send_file
-from TLDR import summarize_post, people_grouping
+from TLDR import summarize_post, people_grouping, GetLikesInTimeFromTopGroups
 import re
 from imageGenTest import genImage
-
+import HTMLCreatorOfLikesGraph
 app = Flask(__name__)
 app.debug = True
 
@@ -19,6 +19,9 @@ def make_tldr():
     id = url.group(0)
     post, summarized_post, summarized_comments, images, top_commenters = summarize_post(id, token)
     grouped_list, most_important_people = people_grouping(post)
+    dict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
+    print "opaaaa"
+    HTMLCreatorOfLikesGraph.create(dict)
 
     # for people_list in grouped_list:
     #     for person in people_list:
