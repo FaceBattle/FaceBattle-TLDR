@@ -16,15 +16,14 @@ def make_tldr():
     url = request.form['posturl']
     url = re.search('(\d)+', url)
     token = request.form['authtoken']
-
-    post, summarized_post, summarized_comments, images, top_commenters = summarize_post(url.group(0), token)
+    id = url.group(0)
+    post, summarized_post, summarized_comments, images, top_commenters = summarize_post(id, token)
     grouped_list, most_important_people = people_grouping(post)
 
-
-    for people_list in grouped_list:
-        for person in people_list:
-            print(person.name)
-        print("***cluster done***")
+    # for people_list in grouped_list:
+    #     for person in people_list:
+    #         print(person.name)
+    #     print("***cluster done***")
 
     if summarized_post is not None:
         summarized_post = summarized_post[0]
