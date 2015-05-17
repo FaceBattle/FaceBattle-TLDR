@@ -6,7 +6,6 @@ from imageGenTest import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
 import math
-
 app = Flask(__name__)
 app.debug = True
 
