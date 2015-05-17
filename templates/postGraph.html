@@ -210,6 +210,8 @@
                         <h5 class="media-heading"><b>{{comment.owner.name}} -- {{ comment.like_count }} Likes</b></h5>
                         {%  if comment.image_URL  %}
                             <img height="200" width="200" src={{ comment.image_URL }}>
+                        {% endif %}
+                    
                         {{ comment.message }}
                     </div>
 
