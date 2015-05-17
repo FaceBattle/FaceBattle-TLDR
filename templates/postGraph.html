@@ -61,7 +61,7 @@
       edges = [
         {% for i in all_important_people_ids %}
           {% for j in all_important_people_ids %}
-          {%if adj_matrix[i][j] > 0.025 and i < j and people_list[i].group_number != None and people_list[j].group_number != None%}
+          {%if adj_matrix[i][j] > 0.03 and i < j and people_list[i].group_number != None and people_list[j].group_number != None%}
             {from: {{ i }}, to: {{ j }} },
           {% endif %}{% endfor %}{% endfor %}
       ];
@@ -73,6 +73,23 @@
         edges: edges
       };
       var options = {
+          groups: {
+              1 : {
+                color: 'red'
+              },
+              2: {
+                color: "lightgreen"
+              },
+              3: {
+                color: "blue"
+              }
+            },
+            physics: {
+              barnesHut: {
+
+                      damping: 2
+                  },
+            },
         nodes: {
           borderWidth:4,
         color: {
