@@ -76,11 +76,39 @@
     {% endfor %}
     </div>
 
+
+    <div class="row">
+        <div class="col-md-12">
+            <H3 class="page-header">Mais Importantes</H3>
+         </div>
+
+        {% for group in most_important_people %}
+            <div class="col-md-4">
+            <h4 align="center">Grupo:  {{ group[0].group_number }}</h4>
+            <ul class="media-list">
+            {% for person in group %}
+                <li class="media">
+                    <img class="img-circle"
+                                 src="http://graph.facebook.com/{{person.id}}/picture?width=100&height=100"
+                                 alt="profile picture"
+                                    >
+
+                    <div class="media-body">
+                        <h5 class="media-heading">{{person.name}} - Grupo: {{ person.group_number }}</h5>
+                    </div>
+
+                </li>
+            {% endfor %}
+            </ul>
+            </div>
+        {% endfor %}
+
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <H3 class="page-header">As melhores frase</H3>
         </div>
-        <!--<ul id="summ2" class="media-list">-->
 
         {% for item in summarized_comments %}
             <div class="col-md-4" style="padding-bottom: 20px">
@@ -98,19 +126,18 @@
             </div>
         {% endfor %}
     </div>
-    <!--</ul>-->
-{##}
-{#    <div class="row">#}
-{#        <div class="col-md-12">#}
-{#            <H3 class="page-header">Imagens!</H3>#}
-{#        </div>#}
-{#        {% for image in images %}#}
-{#                <div class="col-md-4 col-xs-6">#}
-{#                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>#}
-{#                    <img src={{ image.image_URL }}>#}
-{#                </div>#}
-{#        {% endfor %}#}
-{#    </div>#}
+
+    <div class="row">
+        <div class="col-md-12">
+            <H3 class="page-header">Imagens!</H3>
+        </div>
+        {% for image in images %}
+                <div class="col-md-4 col-xs-6">
+                    <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>
+                    <img src={{ image.image_URL }}>
+                </div>
+        {% endfor %}
+    </div>
 </div>
 </body>
 </html>

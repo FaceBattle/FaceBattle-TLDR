@@ -57,7 +57,7 @@ class NewmanGreedy:
         for cluster_id in graph.nodes_iter():
             #node_degree = graph.degree(cluster_id)
             node_degree = 0
-            for tags in graph[cluster_id].itervalues():
+            for tags in graph[cluster_id].values():
                 if isinstance(tags, dict) and 'weight' in tags:
                     node_degree += tags['weight']
                 else:
