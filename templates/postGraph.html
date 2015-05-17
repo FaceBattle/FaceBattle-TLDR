@@ -57,7 +57,7 @@
       // create connetions between people
       // value corresponds with the amount of contact between two people
       edges = [
-        {% for i in range(n_people) %} {% for j in range(n_people) %} {%if adj_matrix[i][j] != 0 and i != j %}
+        {% for i in range(n_people) %} {% for j in range(i,n_people) %} {%if adj_matrix[i][j] != 0 and i != j %}
             {from: {{ i }}, to: {{ j }}, value: {{ adj_matrix[i][j] }} },
           {% endif %}{% endfor %}{% endfor %}
       ];
