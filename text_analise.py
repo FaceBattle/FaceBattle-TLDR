@@ -39,7 +39,7 @@ def frequency(word):
 
 #receive a string with all comments
 #return a image with the worldCloud
-def freq_comment(all_comments, _width = 1200, _height = 1000, save_file_name= 'tmp'):
+def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp'):
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     APP_STATIC = os.path.join(APP_ROOT, 'static')
     file_name = os.path.join(APP_STATIC, 'freq_portugues.p')
@@ -90,6 +90,7 @@ def freq_comment(all_comments, _width = 1200, _height = 1000, save_file_name= 't
     max_num_words = 100
     sorted_tokens_after = sorted_tokens_after[0:max_num_words]
 
+    print("COMECANDO A PLOTAR WORDCLOUD")
     wordcloud = WordCloud(width= _width,height= _height,font_path="Arial.ttf").generate_from_frequencies(sorted_tokens_after)
 
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -97,6 +98,7 @@ def freq_comment(all_comments, _width = 1200, _height = 1000, save_file_name= 't
     save_file_name = os.path.join(APP_STATIC, save_file_name + '.png')
 
     wordcloud.to_file(save_file_name)
+    print("WORDCLOUD TERMINADO")
 
 
 #file_name = "texts_files/freq_portugues"

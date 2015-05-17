@@ -1,11 +1,8 @@
-# cython: boundscheck=False
-# cython: wraparound=False
+def query_integral_image(integral_image, size_x, size_y, random_state):
+    x = integral_image.shape[0]
+    y = integral_image.shape[1]
 
-def query_integral_image(unsigned int[:,:] integral_image, int size_x, int size_y, random_state):
-    cdef int x = integral_image.shape[0]
-    cdef int y = integral_image.shape[1]
-    cdef int area, i, j
-    cdef int hits = 0
+    hits = 0
 
     # count how many possible locations
     for i in range(x - size_x):
@@ -18,7 +15,7 @@ def query_integral_image(unsigned int[:,:] integral_image, int size_x, int size_
         # no room left
         return None
     # pick a location at random
-    cdef int goal = random_state.randint(0, hits)
+    goal = random_state.randint(0, hits)
     hits = 0
     for i in range(x - size_x):
         for j in range(y - size_y):

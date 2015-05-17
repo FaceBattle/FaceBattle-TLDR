@@ -44,7 +44,7 @@ def people_grouping(post):
 
     people_list, clusters, most_important_people = cl.GetPeopleListAndClusterListAndMostImportantPeople(post)
 
-    print(most_important_people)
+    # print(most_important_people)
     new_group_list = []
     new_most_important_people = []
 
@@ -59,7 +59,7 @@ def people_grouping(post):
         new_group_list.append(my_cluster_list)
 
     for person_id in most_important_people:
-        print(person_id)
+        # print(person_id)
         group = (people_list[person_id]).group_number
 
         if (group is not None and len(new_most_important_people[group]) < person_per_cluster):
@@ -125,9 +125,9 @@ def MakeWordCloudFromTopGroups(group_list, comments, post_id):
         elif comment.owner in group_list[2]:
             ans[2] += '. ' + comment.message
 
-    freq_comment(ans[0], _width=400, _height=400, save_file_name=post_id+'_0')
-    freq_comment(ans[1], _width=400, _height=400, save_file_name=post_id+'_1')
-    freq_comment(ans[2], _width=400, _height=400, save_file_name=post_id+'_2')
+    freq_comment(ans[0], _width=200, _height=200, save_file_name=post_id+'_0')
+    freq_comment(ans[1], _width=200, _height=200, save_file_name=post_id+'_1')
+    freq_comment(ans[2], _width=200, _height=200, save_file_name=post_id+'_2')
 
     return ans
 
