@@ -4,7 +4,7 @@ import myPyTeaser
 import FacebookInterface
 import  Clusterer as cl
 from collections import Counter
-from text_analise import freq_comment
+from text_analise import freq_comment, get_most_freq
 
 def summarize_post(id, token):
     # post = FacebookInterface.get_fb_post(id, token)
@@ -130,6 +130,24 @@ def MakeWordCloudFromTopGroups(group_list, comments, post_id):
     freq_comment(ans[2], _width=200, _height=200, save_file_name=post_id+'_2')
 
     return ans
+
+def GetFreqFromAllComments(comments):
+    a = comments
+    a.sort(reverse=True, key = lambda x : x.like_count)
+    ans = ''
+
+    for comment in a:
+        ans += '. ' + comment.message
+
+
+
+    here = get_most_freq(ans)
+    here = here[:4]
+
+    words = [x[0] for x in here]
+    print(words)
+    return words
+
 
 
 def GetLikesInTimeFromTopGroups(comments, group_list):

@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, send_file
 from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
-    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups
+    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups, GetFreqFromAllComments
 import re
 from imageGenTest import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
 import math
+
 app = Flask(__name__)
 app.debug = True
 
@@ -25,7 +26,8 @@ def make_tldr():
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
     # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
-    # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+    MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+    word_array = GetFreqFromAllComments(post.comments)
 
     mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
     graphic_script = HTMLCreatorOfLikesGraph.create(mydict)
@@ -61,6 +63,7 @@ def make_tldr():
                        all_important_people_weights = important_weights[:n_people],
                        timeline_script = graphic_script,
                        top_comments=top_comments,
+                       word_array=word_array
                        )
 @app.route('/')
 def hello_world():

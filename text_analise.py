@@ -94,7 +94,6 @@ def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp
 
     arial_path = os.path.join(APP_ROOT,"Arial.ttf")
     wordcloud = WordCloud(width= _width,height= _height,font_path=arial_path).generate_from_frequencies(sorted_tokens_after)
-    # wordcloud = WordCloud(width= _width,height= _height).generate_from_frequencies(sorted_tokens_after)
 
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     APP_STATIC = os.path.join(APP_ROOT, 'tmp')
@@ -102,6 +101,8 @@ def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp
 
     wordcloud.to_file(save_file_name)
     print("WORDCLOUD TERMINADO")
+
+    return sorted_tokens_after
 
 
 #file_name = "texts_files/freq_portugues"
@@ -116,4 +117,55 @@ def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp
 # freq_comment(all_comments)
 
 
+def get_most_freq(all_comments):
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    APP_STATIC = os.path.join(APP_ROOT, 'static')
+    file_name = os.path.join(APP_STATIC, 'freq_portugues.p')
+    dict_freq = pickle.load(open(file_name, "rb" ) )
 
+    web_stopWords = ["q","vc","vcs","tipo","ta","pra","pq","ne","sobre","ser","cara","la"]
+
+    all_comments = remove_accents(all_comments)
+    tokens = all_comments.split()
+
+    #build token dictionary
+    dict_tokens = {}
+    for token in tokens:
+        if token in dict_tokens:
+            dict_tokens[token] += 1
+        else:
+            dict_tokens[token] = 1
+
+    #remove stop words
+    stopWords = get_stop_words('portuguese', cache=True)
+    stopWords += get_stop_words('english', cache=True)
+    stopWords += web_stopWords
+
+    #remove stop words
+    for word in stopWords:
+        dict_tokens.pop(remove_accents(word), None)
+
+    #for word in dict_tokens:
+    #    print(dict_tokens[token])
+    #    dict_tokens[token] = 1+math.log(dict_tokens[token])
+
+    #sorted by frequency
+    sorted_tokens = sorted(dict_tokens.items(), key=operator.itemgetter(1),reverse=True)
+    num_tokens = int(min(len(sorted_tokens)/2, 1000))
+
+    sorted_tokens = sorted_tokens[0:num_tokens]
+
+    #normalize by frequency
+    standart_frequency = dict_freq["acelga"]
+    for i in range(len(sorted_tokens)):
+        (token,value) = sorted_tokens[i]
+        if token in dict_freq:
+            sorted_tokens[i] = (token, math.log(value/dict_freq[token]))
+        else:
+            sorted_tokens[i] = (token,math.log(value/standart_frequency))
+
+    sorted_tokens_after = sorted(sorted_tokens,key=operator.itemgetter(1), reverse=True)
+    max_num_words = 100
+    sorted_tokens_after = sorted_tokens_after[0:max_num_words]
+
+    return sorted_tokens_after
