@@ -1,11 +1,18 @@
 __author__ = 'gbuenoandrade'
+import os
 
 def getPointString(x, y, groupNum):
     return "{x: " + str(x) + ", y: " + str(y) + ", group: " + str(groupNum) + "}"
 
 def create(data):
-    p1 = open("htmlPartsOfLikesGraph/p1.txt", "r").read()
-    p2 = open("htmlPartsOfLikesGraph/p2.txt", "r").read()
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    APP_HTML = os.path.join(APP_ROOT, 'htmlPartsOfLikesGraph')
+    file1 = os.path.join(APP_HTML, "p1.txt")
+    file2 = os.path.join(APP_HTML, "p2.txt")
+
+    p1 = open(file1, "r").read()
+    p2 = open(file2, "r").read()
+
     dataString = ""
     for x, vec in data.items():
         for j in range(0,3):
@@ -14,7 +21,10 @@ def create(data):
             dataString += getPointString(x,vec[j], j)
     ret = ""
     ret = p1 + dataString + p2
-    with open("graphOfLikes.html", "wb") as file:
-        file.write(p1)
-        file.write(dataString)
-        file.write(p2)
+
+    return ret
+    # file3 = os.path.join(APP_ROOT, 'graphOfLikes.html')
+    # with open(file3, "w") as file:
+    #     file.write(p1)
+    #     file.write(dataString)
+    #     file.write(p2)

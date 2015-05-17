@@ -8,7 +8,7 @@
       timeAxis: {
         scale: 'second'
       },
-      width: '150%',
+      width: '40%',
       showMajorLabels: false,
       showMinorLabels: false,
       dataAxis: {
@@ -37,5 +37,3 @@
 
   var Graph2d_1 = new vis.Graph2d(container, dataset, options, groups);
 </script>
-</body>
-</html>
