@@ -14,11 +14,14 @@ def create(data):
     p2 = open(file2, "r").read()
 
     dataString = ""
+    migue = 0
     for x, vec in data.items():
-        for j in range(0,3):
-            if len(dataString) > 0:
-                dataString += "\n,"
-            dataString += getPointString(x,vec[j], j)
+        migue += 1
+        if migue%4 == 0:
+            for j in range(0,3):
+                if len(dataString) > 0:
+                    dataString += "\n,"
+                dataString += getPointString(x,vec[j], j)
     ret = ""
     ret = p1 + dataString + p2
 
