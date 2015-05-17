@@ -1,8 +1,5 @@
 # cython: boundscheck=False
 # cython: wraparound=False
-import array
-import numpy as np
-
 
 def query_integral_image(unsigned int[:,:] integral_image, int size_x, int size_y, random_state):
     cdef int x = integral_image.shape[0]
