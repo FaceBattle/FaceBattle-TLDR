@@ -13,8 +13,8 @@
 <body onload="draw()">
 <div class="container">
     <div class="jumbotron" style="background-color: #5e005e">
-        <h1 style="color: aliceblue">Facebook TLDR</h1>
-        <p style="color: azure">Resumindo a zueira da UNICAMP desde 2015</p>
+        <h1 style="color: aliceblue;">FaceBattle</h1>
+        <p style="color: azure">Trazendo ordem ao caos das discussões, desde 2015</p>
     </div>
 
     <style type="text/css">
@@ -22,8 +22,8 @@
           font: 10pt arial;
         }
         #mynetwork {
-          width: 400px;
-          height: 400px;
+          width: 100%;
+          height: 600px;
           border: 1px solid lightgray;
           background-color:#333333;
         }
@@ -199,9 +199,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <H3 class="page-header">Frases por grupo</H3>
-         </div>
+        <H3 class="page-header">Frases por grupo</H3>
 
         {% for comments_from_group in top_comments %}
             <div class="col-md-4">
@@ -224,7 +222,6 @@
             </ul>
             </div>
         {% endfor %}
-
     </div>
 
     <div class="row">
@@ -261,27 +258,6 @@
         {% endfor %}
     </div>
 
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <H3 class="page-header">Imagens por grupo</H3>
-         </div>
-
-        {% for comments_from_group in top_images_in_groups %}
-            <div class="col-md-4">
-            <h4 align="center"> {{ loop.index0 }} </h4>
-            <ul class="media-list">
-            {% for image in comments_from_group %}
-                <li class="media">
-                    <img src={{ image.image_URL }}>
-                </li>
-            {% endfor %}
-            </ul>
-            </div>
-        {% endfor %}
-    </div>
-
     <div class="row">
         <div class="col-md-4">
             <img src="{{ url_for('fig', post_id = post.id, group_number = 0) }}" alt="Image Placeholder" height="250">
@@ -301,8 +277,9 @@
 <div class="row">
     <div id="visualization"></div>
 </div>
-
-<div id="mynetwork"></div>
+<div class="row">
+    <div id="mynetwork"></div>
+</div>
 </div>
 
 {{ timeline_script | safe }}
