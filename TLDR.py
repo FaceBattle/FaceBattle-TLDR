@@ -25,6 +25,7 @@ def summarize_post(id, token):
 
     image_comment_list.sort(reverse=True, key=lambda x: x.like_count)
 
+
     summarized_post = myPyTeaser.Summarize('', post.message) if post.message is not None else None
 
     summarized_comments, keywords = myPyTeaser.SummarizeComments(post.message if post.message is not None else '', post.comments)
