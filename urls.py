@@ -52,7 +52,7 @@ def make_tldr():
                        post=post,
                        summarized_comments=summarized_comments[:6],
                        summarized_post=summarized_post,
-                       images=images[:6],
+                       images=images[:9],
                        top_commenters=top_commenters,
                        most_important_people = most_important_people,
                        adj_matrix = adj_matrix,

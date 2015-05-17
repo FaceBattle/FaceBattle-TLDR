@@ -195,7 +195,7 @@
             {% else %}
                 <h4 align="center" style="background-color: green; font-size:50px; color:white">
             {% endif %}
-            {{ loop.index0 }} </h4>
+            <p>  .  </p> </h4>
             <ul class="media-list">
             {% set outer_loop = loop %}
             {% for comment in comments_from_group %}
@@ -209,10 +209,12 @@
                     <div class="media-body">
                         <h5 class="media-heading"><b>{{comment.owner.name}} -- {{ comment.like_count }} Likes</b></h5>
                         {%  if comment.image_URL  %}
+                            <center>
                             <img height="200" width="200" src={{ comment.image_URL }}>
+                            </center>
+                        {% else %}
+                            {{ comment.message }}
                         {% endif %}
-                    
-                        {{ comment.message }}
                     </div>
 
                 </li>
