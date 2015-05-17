@@ -18,4 +18,3 @@ pytz==2015.4
 requests==2.7.0
 six==1.9.0
 stop-words==2015.2.23.1
-wordcloud==1.1.0
