@@ -49,15 +49,19 @@
       nodes = [
 
           {% for person_id in all_important_people_ids%}
+               {%if people_list[person_id].group_number != None %}
               { id: {{ person_id|e }}, label: "{{ people_list[person_id].name|e }}" ,shape: 'circularImage', value: {{ all_important_people_weights[loop.index0]|e }} , image : "http://graph.facebook.com/{{people_list[person_id].id}}/picture?width=50&height=50",
-                  group: {%if people_list[person_id].group_number == None %} {{ -1 }} {%else %} {{ people_list[person_id].group_number|e }} {% endif %} },
+                  group:{{ people_list[person_id].group_number|e }} },
+              {% endif %}
           {% endfor %}
       ];
 
       // create connetions between people
       // value corresponds with the amount of contact between two people
       edges = [
-        {% for i in all_important_people_ids %} {% for j in all_important_people_ids %} {%if adj_matrix[i][j] > 0.1 and i != j %}
+        {% for i in all_important_people_ids %}
+          {% for j in all_important_people_ids %}
+          {%if adj_matrix[i][j] > 0.025 and i < j and people_list[i].group_number != None and people_list[j].group_number != None%}
             {from: {{ i }}, to: {{ j }} },
           {% endif %}{% endfor %}{% endfor %}
       ];
