@@ -208,6 +208,8 @@
                     </center>
                     <div class="media-body">
                         <h5 class="media-heading"><b>{{comment.owner.name}} -- {{ comment.like_count }} Likes</b></h5>
+                        {%  if comment.image_URL  %}
+                            <img height="200" width="200" src={{ comment.image_URL }}>
                         {{ comment.message }}
                     </div>
 
@@ -240,6 +242,10 @@
     </div>
 
 
+<div class="row">
+    <div id="visualization"></div>
+</div>
+
     <div class="row">
         <div class="col-md-12">
             <H3 class="page-header">Imagens!</H3>
@@ -247,15 +253,12 @@
         {% for image in images %}
                 <div class="col-md-4 col-xs-6">
                     <h4>{{image.owner.name}} -{{image.like_count}} Likes </h4>
-                    <img height="200" src={{ image.image_URL }}>
+                    <img height="200" width="200" src={{ image.image_URL }}>
                 </div>
         {% endfor %}
     </div>
 
 
-<div class="row">
-    <div id="visualization"></div>
-</div>
 
 </div>
 
