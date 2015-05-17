@@ -14,7 +14,7 @@ def make_tldr():
     url = request.form['posturl']
     url = re.findall('\/(\d+)\/', url + '/')
     token = request.form['authtoken']
-    id = url[-1:]
+    id = url[-1]
 
     print("COMECANDO")
 
