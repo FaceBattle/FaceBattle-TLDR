@@ -6,11 +6,11 @@ import numpy as np
 # import Serializers
 from facepy import GraphAPI
 
-token = 'CAAGjwjYj5jQBAAsnRasZBwRsZCoJ9bLdBH607YghIGAypOfnoMYu8gEEktUXxa61p3y3jZCZCM8vXVIoqwZA6VZCbGb1IZBWjm9fxaNDgv8Yru5VYtjWv64CAGCZByT6BDgduQN3i2m9UkFuVMiqw5avklIzLZBYQtycaPORVn0UZAqEECtJ9dSSOOiP2LnyolmylLHAyJAtGIWVmrOGrTeEBp'
+token = 'CAAWvbeaxw2gBAGYeqrc0c37iQHZBpzDLUvZCiadwsL3CAs98uUTUx45PrgFg43N9sixc1wvjs7Doq7il8hZCBpjuWxgGh5MjECfELRSJWsxLePdMeAWjZAdeOHAPRqx9OlF68c0YaykFESjLrndZAw7OZBSj84LDHhTGa2FXkyBUSeZBHZANifjvZBczXTWpsSg8ZD'
 id = '10153217214370446'
-
-post = FacebookInterface.get_fb_post(id, token)
-post.comments = FacebookInterface.get_fb_comments(id, token)
+#
+# post = FacebookInterface.get_fb_post(id, token)
+# post.comments = FacebookInterface.get_fb_comments(id, token)
 #
 # people_set = post.unique_people_set()
 #
@@ -29,22 +29,12 @@ post.comments = FacebookInterface.get_fb_comments(id, token)
 #         adj_matrix[i_pos, j_pos] += 1
 #         adj_matrix[j_pos, i_pos] += 1
 #
-
-#
-
-#
-# with open("tmp.bin", "rb") as file:
-#     adj_matrix = np.load(file)
-#     import TretaMining as TM
-#     for i in range(0, len(adj_matrix[3])):
-#         adj_matrix[i, i] = 1
-#     M, cluster = TM.getClusters(adj_matrix)
-#     print(cluster)
-#     #TM.getFullGraph(cluster)
-#     TM.getCircularGraph(cluster)
-
 # with open("tmp.bin", "wb") as file:
 #     np.save(file,adj_matrix)
+#
 
-#with open("tmp.bin", "rb") as file:
-#    adj_matrix = np.load(file)
+import agglomod, HTMLCreator
+with open("tmp.bin", "rb") as file:
+    adj_matrix = np.load(file)
+    cluster = agglomod.getClustersDictionary(adj_matrix)
+    HTMLCreator.create(cluster)
