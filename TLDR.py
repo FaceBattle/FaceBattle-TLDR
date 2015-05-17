@@ -87,8 +87,8 @@ def GetTopPostsFromTopGroups(group_list, comments):
     return ans
 
 
-def DrawLikesGraph(comments, group_list):
-    errors = [[], [], []]
+def GetLikesInTimeFromTopGroups(comments, group_list):
+    likes = [[], [], []]
     v = [0, 0, 0]
     for comment in comments:
         if comment.owner in group_list[0]:
@@ -97,12 +97,12 @@ def DrawLikesGraph(comments, group_list):
             v[1] += 1
         if comment.owner in group_list[2]:
             v[2] += 1
-        errors[0].append(v[0])
-        errors[1].append(v[1])
-        errors[2].append(v[2])
-    pyplot.plot(range(0, len(comments)), errors[0], "r--", range(0, len(comments)),
-                errors[1], 'bs', range(0, len(comments)), errors[2], "g^")
-    pyplot.axis([0, len(comments) , 0, max(v[0], max(v[1], v[2]))])
-    pyplot.ylabel('Number of Likes')
-    pyplot.xlabel('Number of Comments posted')
-    pyplot.show()
+        likes[0].append(v[0])
+        likes[1].append(v[1])
+        likes[2].append(v[2])
+    return likes
+    #pyplot.plot(range(0, len(comments)), errors[0], "r--", range(0, len(comments)), errors[1], 'bs', range(0, len(comments)), errors[2], "g^")
+    #pyplot.axis([0, len(comments) , 0, max(v[0], max(v[1], v[2]))])
+    #pyplot.ylabel('Number of Likes')
+    #pyplot.xlabel('Number of Comments posted')
+    #pyplot.show()
