@@ -25,7 +25,7 @@ def make_tldr():
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
     # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
-    MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+    # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
 
     mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
     graphic_script = HTMLCreatorOfLikesGraph.create(mydict)
