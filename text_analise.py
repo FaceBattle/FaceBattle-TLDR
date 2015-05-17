@@ -91,6 +91,7 @@ def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp
     sorted_tokens_after = sorted_tokens_after[0:max_num_words]
 
     print("COMECANDO A PLOTAR WORDCLOUD")
+
     arial_path = os.path.join(APP_ROOT,"Arial.ttf")
     wordcloud = WordCloud(width= _width,height= _height,font_path=arial_path).generate_from_frequencies(sorted_tokens_after)
     # wordcloud = WordCloud(width= _width,height= _height).generate_from_frequencies(sorted_tokens_after)

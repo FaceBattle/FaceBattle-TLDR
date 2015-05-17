@@ -21,6 +21,25 @@
         body {
           font: 10pt arial;
         }
+                .customStyle1 {
+            fill: blue;
+            fill-opacity:0;
+            stroke-width:2px;
+            stroke: blue;
+        }
+        .customStyle2 {
+            fill: red;
+            fill-opacity:0;
+            stroke-width:2px;
+            stroke: red;
+        }
+       .customStyle3 {
+            fill: green;
+            fill-opacity:0;
+            stroke-width:2px;
+            stroke: green;
+        }
+
         #mynetwork {
           width: 85%;
           height: 600px;
@@ -102,10 +121,9 @@
     }
   </script>
 
-{#    <div id="info"></div>#}
 
     <div class="row">
-        <div class="col-md-12"><h2 class="page-header">A treta original</h2>
+        <div class="col-md-12"><h2 class="page-header">O post original</h2>
         </div>
         <!--<div class="media-left media-top">-->
         <div class="col-xs-2 col-md-2 text-center">
@@ -130,7 +148,7 @@
     </div>
 
 
-    <H2 class="page-header">A treta resumida</H2>
+    <H2 class="page-header">O post resumido</H2>
     {%if summarized_post%}
     <center><H3 class="page-header"> <i>" {{ summarized_post }} "</i></H3></center>
     {%endif%}
@@ -165,35 +183,6 @@
     {% endfor %}
     </div>
 
-
-{#    <div class="row">#}
-{#        <div class="col-md-12">#}
-{#            <H3 class="page-header">Mais Importantes</H3>#}
-{#         </div>#}
-{##}
-{#        {% for group in most_important_people %}#}
-{#            <div class="col-md-4">#}
-{#            <h4 align="center">Grupo:  {{ group[0].group_number }}</h4>#}
-{#            <ul class="media-list">#}
-{#            {% for person in group %}#}
-{#                <li class="media">#}
-{#                    <img class="img-circle"#}
-{#                                 src="http://graph.facebook.com/{{person.id}}/picture?width=100&height=100"#}
-{#                                 alt="profile picture"#}
-{#                                    >#}
-{##}
-{#                    <div class="media-body">#}
-{#                        <h5 class="media-heading">{{person.name}} - Grupo: {{ person.group_number }}</h5>#}
-{#                    </div>#}
-{##}
-{#                </li>#}
-{#            {% endfor %}#}
-{#            </ul>#}
-{#            </div>#}
-{#        {% endfor %}#}
-{##}
-{#    </div>#}
-
     <div class="row">
         <H3 class="page-header">Frases por grupo</H3>
 
@@ -212,22 +201,6 @@
             {% for comment in comments_from_group %}
                 <li class="media">
                     <center>
-{#                    {% if outer_loop.index0 == 0 %}#}
-{#                        <img class="img-circle"#}
-{#                                 src="http://graph.facebook.com/{{comment.owner.id}}/picture?width=100&height=100"#}
-{#                                 alt="profile picture"#}
-{#                                    >#}
-{#                    {% elif outer_loop.index0 == 1 %}#}
-{#                        <img class="img-circle"#}
-{#                                 src="http://graph.facebook.com/{{comment.owner.id}}/picture?width=100&height=100"#}
-{#                                 alt="profile picture"#}
-{#                                    >#}
-{#                    {% else %}#}
-{#                        <img class="img-circle"#}
-{#                                 src="http://graph.facebook.com/{{comment.owner.id}}/picture?width=100&height=100"#}
-{#                                 alt="profile picture"#}
-{#                                    >#}
-{#                    {% endif %}#}
                     <img class="img-circle"
                                  src="http://graph.facebook.com/{{comment.owner.id}}/picture?width=100&height=100"
                                  alt="profile picture"
@@ -244,28 +217,7 @@
             </div>
         {% endfor %}
     </div>
-{##}
-{#    <div class="row">#}
-{#        <div class="col-md-12">#}
-{#            <H3 class="page-header">As melhores frase</H3>#}
-{#        </div>#}
-{##}
-{#        {% for item in summarized_comments %}#}
-{#            <div class="col-md-4" style="padding-bottom: 20px">#}
-{#                <div class="media">#}
-{#                    <div class="media-left media-middle">#}
-{#                        <a href="#">#}
-{#                            <img class="img-circle" src="http://graph.facebook.com/{{item.owner.id}}/picture?type=square" alt="profile picture">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="media-body">#}
-{#                        <h5 class="media-heading">{{item.owner.name}} -- {{item.like_count}} likes</h5>#}
-{#                        {{item.message}}#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    </div>#}
+
     <div class="row"><p></p></div>
     <div class="row">
         <div class="col-md-4">
