@@ -23,18 +23,18 @@
   var groups = new vis.DataSet();
   groups.add({
       id: 0,
-      content: 'Group 1',
+      content: 'Group 0',
       className: 'customStyle1'
   });
   groups.add({
       id: 1,
-      content: 'Group 2',
+      content: 'Group 1',
       className: 'customStyle2'
   });
 
   groups.add({
       id: 2,
-      content: 'Group 3',
+      content: 'Group 2',
       className: 'customStyle3'
   });
 
