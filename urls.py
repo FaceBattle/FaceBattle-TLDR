@@ -25,7 +25,7 @@ def make_tldr():
     print("TERMINOU REQUESTS")
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
-    top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
+    # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
     MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
 
     mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
@@ -60,7 +60,8 @@ def make_tldr():
                        people_list = people_list,
                        all_important_people_ids  = most_important_people_ids[:n_people],
                        all_important_people_weights = important_weights[:n_people],
-                       timeline_script = graphic_script
+                       timeline_script = graphic_script,
+                       top_comments=top_comments,
                        )
 @app.route('/')
 def hello_world():

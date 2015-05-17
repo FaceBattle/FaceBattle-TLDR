@@ -8,7 +8,7 @@
       timeAxis: {
         scale: 'second'
       },
-      width: '40%',
+      width: '100%',
       showMajorLabels: false,
       showMinorLabels: false,
       dataAxis: {
