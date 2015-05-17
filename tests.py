@@ -33,6 +33,12 @@ id = '10153217214370446'
 #     np.save(file,adj_matrix)
 #
 
+import Clusterer
+post = FacebookInterface.get_fb_post(id, token)
+
+people_list, cluster_list, most_important_people = Clusterer.GetPeopleListAndClusterListAndMostImportantPeople(post)
+
+
 import agglomod, HTMLCreator
 with open("tmp.bin", "rb") as file:
     adj_matrix = np.load(file)
