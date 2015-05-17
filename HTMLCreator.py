@@ -11,11 +11,13 @@ def create(cluster):
     p2 = open("htmlParts/p2.txt", "r").read()
     p3 = open("htmlParts/p3.txt", "r").read()
     nodes = ""
-    edges = ""
+    # edges = ""
+    edges = getEdgeString(comp[990], comp[990])
     compNum = 0
     for comp in cluster.values():
         compNum += 1
         n = min(len(comp),5)
+
         for i in range(0, n):
             if len(nodes) > 0:
                 nodes += ",\n"

@@ -1,26 +1,41 @@
-  ];
+];
   var dataset = new vis.DataSet(items);
   var options = {
-      // start: '',
-      // end: '8'
+      legend: true,
+      drawPoints: {
+          style: 'circle'
+      },
+      timeAxis: {
+        scale: 'second'
+      },
+      width: '150%',
+      showMajorLabels: false,
+      showMinorLabels: false,
+      dataAxis: {
+        title:{
+          left:{
+            text: "Likes:"
+          }
+        }
+      }
   };
+  // dataset.options.drawPoints.style = 'circle';
   var groups = new vis.DataSet();
   groups.add({
       id: 0,
-      content: 'Group 0',
+      content: 'Group 1',
   });
-
   groups.add({
       id: 1,
-      content: 'Group 1',
+      content: 'Group 2',
   });
 
   groups.add({
       id: 2,
-      content: 'Group 2',
+      content: 'Group 3',
   });
 
-  var Graph2d_1 = new vis.Graph2d(container, dataset, groups);
+  var Graph2d_1 = new vis.Graph2d(container, dataset, options, groups);
 </script>
 </body>
 </html>
