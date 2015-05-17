@@ -63,7 +63,7 @@ def scoreComments(comments, titleWords, keywords, weights):
 
         scores.append(totalScore)
 
-    indices = np.argpartition(scores, -number_of_comments)[-number_of_comments:]
+    indices = np.argpartition(np.array(scores), -number_of_comments)[-number_of_comments:]
     indices.sort()
     return indices
 
