@@ -90,7 +90,7 @@ def freq_comment(all_comments, _width = 1200, _height = 1000):
 
     #print(sorted_tokens_after)
 
-    wordcloud = WordCloud(width= _width,height= _height,font_path="~/Library/Fonts/Arial.ttf").generate_from_frequencies(sorted_tokens_after)
+    wordcloud = WordCloud(background_color='white', width= _width,height= _height,font_path="~/Library/Fonts/Arial.ttf").generate_from_frequencies(sorted_tokens_after)
     # Open a plot of the generated image.
     plt.imshow(wordcloud)
     plt.axis("off")
