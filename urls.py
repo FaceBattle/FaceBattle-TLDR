@@ -25,7 +25,6 @@ def make_tldr():
     print("TERMINOU REQUESTS")
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
-    # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
     # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
     word_array = GetFreqFromAllComments(post.comments)
 

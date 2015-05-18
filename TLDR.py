@@ -156,11 +156,11 @@ def GetLikesInTimeFromTopGroups(comments, group_list):
     v = [0, 0, 0]
     for i, comment in enumerate(comments):
         if comment.owner in group_list[0]:
-            v[0] += 1
+            v[0] += comment.like_count
         if comment.owner in group_list[1]:
-            v[1] += 1
+            v[1] += comment.like_count
         if comment.owner in group_list[2]:
-            v[2] += 1
+            v[2] += comment.like_count
         dict[i] = v[0], v[1], v[2]
         likes[0].append(v[0])
         likes[1].append(v[1])

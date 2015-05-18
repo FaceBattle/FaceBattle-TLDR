@@ -1,6 +1,4 @@
 import numpy as np
-import TretaMining as TM
-from mcl_clustering import mcl
 import agglomod
 
 def GetAdjMatrixAndPeopleList(post): #post.comments
@@ -28,25 +26,12 @@ def GetAdjMatrixAndPeopleList(post): #post.comments
 
 def GetClustersOp2(adjMatrix):
     cluster = agglomod.getClustersDictionary(adjMatrix)
-    TM.getFullGraph(cluster)
     cluster_list = []
     for a in cluster.values():
         if a not in cluster_list:
             cluster_list.append(a)
     cluster_list.sort(key=len, reverse=True)
     return cluster_list
-
-def GetClusters(adj_matrix):
-    M, cluster = mcl(adj_matrix, expand_factor=5, inflate_factor=3)
-
-    TM.getFullGraph(cluster)
-    cluster_list = []
-    for a in cluster.values():
-        if a not in cluster_list:
-            cluster_list.append(a)
-    cluster_list.sort(key=len, reverse=True)
-    return cluster_list
-
 
 def GetPeopleListAndClusterListAndMostImportantPeople(post): #post
     adj_matrix, people_list = GetAdjMatrixAndPeopleList(post)
