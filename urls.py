@@ -5,10 +5,14 @@ import re
 from imageGenTest import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
-import math
+from flask_sslify import SSLify
+
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
+
+sslify = SSLify(app)
+
 
 @app.route('/tldr/', methods=['POST'])
 def make_tldr():
