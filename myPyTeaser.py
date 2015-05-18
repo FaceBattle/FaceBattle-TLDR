@@ -1,4 +1,6 @@
 # coding=utf-8
+# based on https://github.com/xiaoxu193/PyTeaser
+
 from stop_words import get_stop_words
 from re import split as regex_split, sub as regex_sub, UNICODE as REGEX_UNICODE
 import numpy as np

@@ -28,10 +28,6 @@ def getFullGraph(clusters):
                     for b in cluster:
                             if a != b:
                                 G.add_edge(a, b)
-    # nx.draw(G)
-    # print(len(G.nodes()))
-    # print(len(G.edges()))
-    # plt.show()
     fig = plt.gcf()
     imgdata = io.BytesIO()
     fig.savefig(imgdata, format='png')
