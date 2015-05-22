@@ -1,0 +1,1 @@
+this folder is used for the creation of temporary image files (wordclouds)

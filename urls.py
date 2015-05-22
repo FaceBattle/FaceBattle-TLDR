@@ -30,7 +30,12 @@ def make_tldr():
     print("TERMINOU REQUESTS")
 
     top_comments = TLDR.GetTopPostsFromTopGroups(grouped_list, post.comments)
+
+    # The wordcloud lib we were using is pretty broken, so we've commented the next call to prevent possible crashes
+    # with missing fonts, and excessive slowdown. If you are running locally it should still work though.
     # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+
+
     word_array = TLDR.GetFreqFromAllComments(post.comments)
 
     mydict = TLDR.GetLikesInTimeFromTopGroups(post.comments, grouped_list)
