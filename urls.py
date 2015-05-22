@@ -9,12 +9,13 @@ from flask_sslify import SSLify
 
 
 app = Flask(__name__)
-app.debug = False
+app.debug = True
 
-sslify = SSLify(app)
+# sslify = SSLify(app)
 
 
-@sslify.app.route('/tldr/', methods=['POST'])
+# @sslify.app.route('/tldr/', methods=['POST'])
+@app.route('/tldr/', methods=['POST'])
 def make_tldr():
     url = request.form['posturl']
     url = re.findall('\/(\d+)\/', url + '/')
@@ -68,15 +69,18 @@ def make_tldr():
                        top_comments=top_comments,
                        word_array=word_array
                        )
-@sslify.app.route('/')
+# @sslify.app.route('/')
+@app.route('/')
 def hello_world():
     return render_template('index.html')
 
 
-@sslify.app.route('/fig/<post_id>/<group_number>')
+# @sslify.app.route('/fig/<post_id>/<group_number>')
+@app.route('/fig/<post_id>/<group_number>')
 def fig(post_id, group_number):
     img = genImage(post_id + '_' + group_number)
     return send_file(img, mimetype='image/png')
 
 if __name__ == '__main__':
-    sslify.app.run(host='0.0.0.0')
+    # sslify.app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
