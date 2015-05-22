@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, send_file
-from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
-    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups, GetFreqFromAllComments
+import TLDR
+
 import re
-from imageGenTest import genImage
+from imageGen import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
 from flask_sslify import SSLify
@@ -24,16 +24,16 @@ def make_tldr():
 
     print("COMECANDO")
 
-    post, summarized_post, summarized_comments, images, top_commenters = summarize_post(id, token)
-    grouped_list, most_important_people = people_grouping(post)
+    post, summarized_post, summarized_comments, images, top_commenters = TLDR.summarize_post(id, token)
+    grouped_list, most_important_people = TLDR.people_grouping(post)
 
     print("TERMINOU REQUESTS")
 
-    top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
+    top_comments = TLDR.GetTopPostsFromTopGroups(grouped_list, post.comments)
     # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
-    word_array = GetFreqFromAllComments(post.comments)
+    word_array = TLDR.GetFreqFromAllComments(post.comments)
 
-    mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
+    mydict = TLDR.GetLikesInTimeFromTopGroups(post.comments, grouped_list)
     graphic_script = HTMLCreatorOfLikesGraph.create(mydict)
 
     if summarized_post is not None:

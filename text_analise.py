@@ -92,6 +92,7 @@ def freq_comment(all_comments, _width = 200, _height = 100, save_file_name= 'tmp
 
     print("COMECANDO A PLOTAR WORDCLOUD")
 
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     arial_path = os.path.join(APP_ROOT,"Arial.ttf")
     wordcloud = WordCloud(background_color='white', width= _width,height= _height,font_path=arial_path).generate_from_frequencies(sorted_tokens_after)
 

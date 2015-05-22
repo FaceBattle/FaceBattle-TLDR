@@ -58,11 +58,6 @@ def GetMostImportantPeople(the_adj_matrix):
     for id in people_list_id:
         people_list_values.append(people_list_importance[id])
 
-    # print('peoplr list ids')
-    # print(people_list_id)
-    # print('people list values')
-    # print(people_list_values)
-
     return people_list_id, people_list_values
 
 
