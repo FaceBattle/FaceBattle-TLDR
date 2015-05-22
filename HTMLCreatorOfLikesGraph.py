@@ -22,12 +22,6 @@ def create(data):
                 if len(dataString) > 0:
                     dataString += "\n,"
                 dataString += getPointString(x,vec[j], j)
-    ret = ""
     ret = p1 + dataString + p2
 
     return ret
-    # file3 = os.path.join(APP_ROOT, 'graphOfLikes.html')
-    # with open(file3, "w") as file:
-    #     file.write(p1)
-    #     file.write(dataString)
-    #     file.write(p2)

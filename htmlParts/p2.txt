@@ -1,5 +1,0 @@
-    ];
-
-      // create connetions between people
-      // value corresponds with the amount of contact between two people
-      edges = [

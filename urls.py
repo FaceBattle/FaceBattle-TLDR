@@ -1,13 +1,18 @@
 from flask import Flask, render_template, request, send_file
 from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
-    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups
+    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups, GetFreqFromAllComments
 import re
 from imageGenTest import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
-import math
+from flask_sslify import SSLify
+
+
 app = Flask(__name__)
-app.debug = True
+app.debug = False
+
+sslify = SSLify(app)
+
 
 @app.route('/tldr/', methods=['POST'])
 def make_tldr():
@@ -24,8 +29,8 @@ def make_tldr():
     print("TERMINOU REQUESTS")
 
     top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
-    # top_images = GetTopImagesFromTopGroups(grouped_list, post.comments)
     # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+    word_array = GetFreqFromAllComments(post.comments)
 
     mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
     graphic_script = HTMLCreatorOfLikesGraph.create(mydict)
@@ -52,7 +57,7 @@ def make_tldr():
                        post=post,
                        summarized_comments=summarized_comments[:6],
                        summarized_post=summarized_post,
-                       images=images[:6],
+                       images=images[:9],
                        top_commenters=top_commenters,
                        most_important_people = most_important_people,
                        adj_matrix = adj_matrix,
@@ -61,6 +66,7 @@ def make_tldr():
                        all_important_people_weights = important_weights[:n_people],
                        timeline_script = graphic_script,
                        top_comments=top_comments,
+                       word_array=word_array
                        )
 @app.route('/')
 def hello_world():

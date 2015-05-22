@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Basic Bootstrap Template</title>
+<title>FaceBattle TLDR</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -109,7 +109,7 @@
 <div class="container">
 
     <div class="jumbotron" style="background-color: #5e005e">
-        <h1 style="color: aliceblue;">FaceBattle</h1>
+        <h1 style="color: aliceblue;">FaceBattle - TLDR</h1>
         <p style="color: azure">Trazendo ordem ao caos das discussões, desde 2015</p>
     </div>
 
@@ -129,17 +129,22 @@
     </form>
 
      <div class="row" style="padding-bottom: 10px">
+         <center>
             <div class="col-md-12 text-center">
-                <fb:login-button data-size="large" scope="public_profile,email,user_groups" onlogin="checkLoginState();">
+                <fb:login-button data-size="large" scope="email, user_groups" onlogin="checkLoginState();">
                 </fb:login-button>
             </div>
             <div id="status">
             </div>
+         </center>
      </div>
 
-{#    <div class="row">#}
-{#        <img src="{{ url_for('fig') }}" alt="Image Placeholder" height="100">#}
-{#    </div>#}
+    <div class="row">
+        <center>
+            <small><p style="width: 50%">Nada será postado em seu nome, nem nenhuma informação será armazenada.</p>
+                <p style="width: 50%">Apenas necessitamos do seu login para ter acesso ao post que você quer entender!</p></small>
+        </center>
+    </div>
 </div>
 </body>
 </html>                                		
