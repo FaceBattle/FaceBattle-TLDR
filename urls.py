@@ -1,19 +1,20 @@
 from flask import Flask, render_template, request, send_file
-from TLDR import summarize_post, people_grouping, GetTopPostsFromTopGroups, GetTopImagesFromTopGroups, \
-    MakeWordCloudFromTopGroups, GetLikesInTimeFromTopGroups, GetFreqFromAllComments
+import TLDR
+
 import re
-from imageGenTest import genImage
+from imageGen import genImage
 import HTMLCreatorOfLikesGraph
 import Clusterer
 from flask_sslify import SSLify
 
 
 app = Flask(__name__)
-app.debug = False
+app.debug = True
 
-sslify = SSLify(app)
+# sslify = SSLify(app)
 
 
+# @sslify.app.route('/tldr/', methods=['POST'])
 @app.route('/tldr/', methods=['POST'])
 def make_tldr():
     url = request.form['posturl']
@@ -23,16 +24,21 @@ def make_tldr():
 
     print("COMECANDO")
 
-    post, summarized_post, summarized_comments, images, top_commenters = summarize_post(id, token)
-    grouped_list, most_important_people = people_grouping(post)
+    post, summarized_post, summarized_comments, images, top_commenters = TLDR.summarize_post(id, token)
+    grouped_list, most_important_people = TLDR.people_grouping(post)
 
     print("TERMINOU REQUESTS")
 
-    top_comments = GetTopPostsFromTopGroups(grouped_list, post.comments)
-    # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
-    word_array = GetFreqFromAllComments(post.comments)
+    top_comments = TLDR.GetTopPostsFromTopGroups(grouped_list, post.comments)
 
-    mydict = GetLikesInTimeFromTopGroups(post.comments, grouped_list)
+    # The wordcloud lib we were using is pretty broken, so we've commented the next call to prevent possible crashes
+    # with missing fonts, and excessive slowdown. If you are running locally it should still work though.
+    # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
+
+
+    word_array = TLDR.GetFreqFromAllComments(post.comments)
+
+    mydict = TLDR.GetLikesInTimeFromTopGroups(post.comments, grouped_list)
     graphic_script = HTMLCreatorOfLikesGraph.create(mydict)
 
     if summarized_post is not None:
@@ -68,15 +74,18 @@ def make_tldr():
                        top_comments=top_comments,
                        word_array=word_array
                        )
+# @sslify.app.route('/')
 @app.route('/')
 def hello_world():
     return render_template('index.html')
 
 
+# @sslify.app.route('/fig/<post_id>/<group_number>')
 @app.route('/fig/<post_id>/<group_number>')
 def fig(post_id, group_number):
     img = genImage(post_id + '_' + group_number)
     return send_file(img, mimetype='image/png')
 
 if __name__ == '__main__':
+    # sslify.app.run(host='0.0.0.0')
     app.run(host='0.0.0.0')

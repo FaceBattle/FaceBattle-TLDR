@@ -1,5 +1,8 @@
 __author__ = 'gbuenoandrade'
 
+#http://en.wikipedia.org/wiki/Girvan–Newman_algorithm
+#Reference https://github.com/kjahan/community/blob/master/cmty.py
+
 import networkx as nx
 import heapq
 import os
