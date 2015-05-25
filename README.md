@@ -10,7 +10,7 @@ The goal of this project is to break-down long, heated Facebook discussion posts
 ## How it works:
 Our analysis starts from the idea that people that agree with an idea will give a like to the comments of people defending that idea. So we make a graph of who gave a like to who, where the weight of an edge is the ammount of likes given between the 2 people.
 
-On that graph, we run a [Girvan-Newman algorithm](http://en.wikipedia.org/wiki/Girvan–Newman_algorithm) for community detection, effectively separating all the people that appearead in the discussion (either by commenting or liking) into groups.
+On that graph, we run a [Girvan-Newman algorithm](http://en.wikipedia.org/wiki/Girvan–Newman_algorithm) for community detection, effectively separating all the people that appeared in the discussion (either by commenting or liking) into groups.
 
 We then provide information about each group, such as the comments with most likes, the most important words used, and the total likes evolution over time.
 
