@@ -44,7 +44,6 @@ def make_tldr():
     if summarized_post is not None:
         summarized_post = summarized_post[0]
 
-
     adj_matrix, people_list = Clusterer.GetAdjMatrixAndPeopleList(post)
     most_important_people_ids, important_weights = Clusterer.GetMostImportantPeople(adj_matrix)
 

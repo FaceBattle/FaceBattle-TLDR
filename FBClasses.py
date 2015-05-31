@@ -53,3 +53,17 @@ class Person:
 
     def __hash__(self):
         return hash(self.id)
+
+     id: {{ node.id }}, label: "node.name" ,shape: 'circularImage', value: {{ node.value }} , image : "node.image_url",
+              group:{{ node.group }} },
+
+class Node:
+    def __init__(self, id, value, image_url, group):
+        self.id = id
+        self.value = value
+        self.image_URL = image_url
+        self.group = group
+
+
+    def __str__(self):
+        return self.id
