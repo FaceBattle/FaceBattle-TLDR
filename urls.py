@@ -35,7 +35,6 @@ def make_tldr():
     # with missing fonts, and excessive slowdown. If you are running locally it should still work though.
     # MakeWordCloudFromTopGroups(grouped_list, post.comments, post.id)
 
-
     word_array = TLDR.GetFreqFromAllComments(post.comments)
 
     mydict = TLDR.GetLikesInTimeFromTopGroups(post.comments, grouped_list)
